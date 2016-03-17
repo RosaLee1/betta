@@ -1,6 +1,6 @@
 #Use the "new" Make structure
-MAKERULES = $(TOSDIR)/../tools/make/Makerules
-TOSMAKE_PATH += $(VUTOS)/../tools/make
+MAKERULES = $(TOSDIR)/../support/make/Makerules
+TOSMAKE_PATH += $(VUTOS)/../support/make
 
 #ifdef TINYOS_NP
   ifeq ($(TINYOS_NP),XNP)
