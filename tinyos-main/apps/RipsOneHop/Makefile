@@ -29,4 +29,4 @@ ifndef COMPONENT
     COMPONENT=RipsOneHopC
 endif
 
-include ../Makerules
+include $(MAKERULES)
