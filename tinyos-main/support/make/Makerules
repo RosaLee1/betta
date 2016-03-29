@@ -203,14 +203,3 @@ $(COMPONENT).nc:
 
 .PHONY: FORCE
 
-#Use the "new" Make structure for RIPS application
-
-#ifdef TINYOS_NP
-  ifeq ($(TINYOS_NP),XNP)
-  	CFLAGS += -I$(TOSDIR)/lib/Xnp -I$(shell ncc -print-tosdir)/lib/Xnp
-  endif
-#endif
-
-#Include the Vanderbilt Libs and platforms
-$(call TOSMake_include,vandy.extra)
-
