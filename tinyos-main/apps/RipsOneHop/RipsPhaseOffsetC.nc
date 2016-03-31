@@ -36,7 +36,7 @@ configuration RipsPhaseOffsetC
 
 implementation
 {
-	components Main, RipsPhaseOffsetM, RipsDataStoreC, RSSILoggerC, LedsC,
+	components MainC, RipsPhaseOffsetM, RipsDataStoreC, RSSILoggerC, LedsC,
 	            RipsDataCollectionC, TimerC, GenericComm;
 
 	RipsPhaseOffset = RipsPhaseOffsetM;

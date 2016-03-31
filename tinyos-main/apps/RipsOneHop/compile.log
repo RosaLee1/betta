@@ -1,18 +1,13 @@
-mkdir -p build/z1
-    compiling RipsOneHopC to a z1 binary
-ncc -o build/z1/main.exe  -Os -I%T/lib/bigmsg -I./RadioInclude -I%T/lib/RemoteControl -I%T/lib/OrderCorrectADC -I%T/lib/FloodRouting -fnesc-separator=__ -Wall -Wshadow -Wnesc-all -target=z1 -fnesc-cfile=build/z1/app.c -board= -DDEFINED_TOS_AM_GROUP=0x22 -DIDENT_APPNAME=\"RipsOneHopC\" -DIDENT_USERNAME=\"rgao\" -DIDENT_HOSTNAME=\"rgao-virtual-ma\" -DIDENT_USERHASH=0x7942d6a9L -DIDENT_TIMESTAMP=0x56fc53d9L -DIDENT_UIDHASH=0x7732d522L  RipsOneHopC.nc -lm 
-In component `RipsOneHopC':
-RipsOneHopC.nc:34: component Main not found
-In file included from RipsOneHopC.nc:34:
-In component `RipsOneHopM':
-RipsOneHopM.nc:36: interface DataCommand not found
-In file included from RipsOneHopC.nc:34:
-RipsOneHopM.nc:43: too few arguments to interface `Timer'
-In file included from RipsOneHopM.nc:44,
+mkdir -p build/mica2
+    compiling RipsOneHopC to a mica2 binary
+ncc -o build/mica2/main.exe  -Os -I%T/lib/bigmsg -I./radio_include -I%T/lib/remote_control -I%T/lib/OrderCorrectADC -I%T/lib/FloodRouting -fnesc-separator=__ -Wall -Wshadow -Wnesc-all -target=mica2 -fnesc-cfile=build/mica2/app.c -board=micasb -DDEFINED_TOS_AM_GROUP=0x22 --param max-inline-insns-single=100000 -DIDENT_APPNAME=\"RipsOneHopC\" -DIDENT_USERNAME=\"rgao\" -DIDENT_HOSTNAME=\"rgao-virtual-ma\" -DIDENT_USERHASH=0x7942d6a9L -DIDENT_TIMESTAMP=0x56fca152L -DIDENT_UIDHASH=0x2b6408a4L -fnesc-dump=wiring -fnesc-dump='interfaces(!abstract())' -fnesc-dump='referenced(interfacedefs, components)' -fnesc-dumpfile=build/mica2/wiring-check.xml RipsOneHopC.nc -lm 
+In file included from RipsOneHopM.nc:46,
                  from RipsOneHopC.nc:34:
 In interface `RSSILogger':
-./RadioInclude/RSSILogger.nc:38: syntax error before `result'
-In file included from RipsOneHopM.nc:46,
+./radio_include/RSSILogger.nc:38: only commands and events can be defined in interfaces
+./radio_include/RSSILogger.nc:38: warning: return-type defaults to `int'
+./radio_include/RSSILogger.nc:38: syntax error before `check'
+In file included from RipsOneHopM.nc:48,
                  from RipsOneHopC.nc:34:
 In interface `RipsPhaseOffset':
 RipsPhaseOffset.nc:48: only commands and events can be defined in interfaces
@@ -22,50 +17,54 @@ RipsPhaseOffset.nc:62: warning: declaration of `result_t' shadows global declara
 RipsPhaseOffset.nc:48: warning: location of shadowed declaration
 RipsPhaseOffset.nc:62: syntax error before `res'
 In component `RipsOneHopM':
-RipsOneHopM.nc:47: interface FloodRouting not found
-RipsOneHopM.nc:69: `execute' is not in interface `StartMeasurementCommand'
+RipsOneHopM.nc:49: interface FloodRouting not found
 RipsOneHopM.nc: In function `StartMeasurementCommand.execute':
-RipsOneHopM.nc:77: interface has no command or event named `start'
-RipsOneHopM.nc:77: `TIMER_ONE_SHOT' undeclared (first use in this function)
-RipsOneHopM.nc:77: (Each undeclared identifier is reported only once
-RipsOneHopM.nc:77: for each function it appears in.)
+RipsOneHopM.nc:79: interface has no command or event named `start'
+RipsOneHopM.nc:79: `TIMER_ONE_SHOT' undeclared (first use in this function)
+RipsOneHopM.nc:79: (Each undeclared identifier is reported only once
+RipsOneHopM.nc:79: for each function it appears in.)
 RipsOneHopM.nc: At top level:
-RipsOneHopM.nc:82: syntax error before `Timer'
+RipsOneHopM.nc:84: syntax error before `Timer0'
+RipsOneHopM: `Timer0.fired' not implemented
 RipsOneHopM: `RSSILogger.reportDone' not implemented
 RipsOneHopM: `RipsPhaseOffset.measurementEnded' not implemented
 RipsOneHopM: `RipsPhaseOffset.reportPhaseOffsets' not implemented
 RipsOneHopM: `RipsPhaseOffset.measurementStarted' not implemented
 RipsOneHopM: `StdControl.start' not implemented
 RipsOneHopM: `StdControl.stop' not implemented
-RipsOneHopM: `Timer.fired' not implemented
 In file included from RipsDataStoreC.nc:37,
                  from RipsOneHopC.nc:34:
-In component `RipsDataStoreM':
-RipsDataStoreM.nc:33: interface IntCommand not found
-RipsDataStoreM.nc:43: `execute' is not in interface `ChannelsSetCommand'
-RipsDataStoreM.nc: In function `ChannelsSetCommand.execute':
-RipsDataStoreM.nc:45: interface has no command or event named `ack'
-RipsDataStoreM.nc: At top level:
-RipsDataStoreM.nc:50: `execute' is not in interface `ChannelsGetCommand'
-RipsDataStoreM.nc: In function `ChannelsGetCommand.execute':
-RipsDataStoreM.nc:52: interface has no command or event named `ack'
-RipsDataStoreM.nc:53: interface has no command or event named `ack'
-RipsDataStoreM.nc: At top level:
-RipsDataStoreM.nc:60: `execute' is not in interface `ParamsSetCommand'
-RipsDataStoreM.nc: In function `ParamsSetCommand.execute':
-RipsDataStoreM.nc:62: interface has no command or event named `ack'
-RipsDataStoreM.nc: At top level:
-RipsDataStoreM.nc:67: `execute' is not in interface `ParamsGetCommand'
-RipsDataStoreM.nc: In function `ParamsGetCommand.execute':
-RipsDataStoreM.nc:69: interface has no command or event named `ack'
-RipsDataStoreM.nc:70: interface has no command or event named `ack'
-In component `RipsDataStoreC':
-RipsDataStoreC.nc: At top level:
-RipsDataStoreC.nc:37: component RemoteControlC not found
-RipsDataStoreC.nc:41: cannot find `DataCommand'
-RipsDataStoreC.nc:42: cannot find `IntCommand'
-RipsDataStoreC.nc:43: cannot find `DataCommand'
-RipsDataStoreC.nc:44: cannot find `IntCommand'
+In component `RemoteControlC':
+/home/rgao/betta/tinyos-main/tos/lib/remote_control/RemoteControlC.nc:82: component Main not found
+In file included from /home/rgao/betta/tinyos-main/tos/lib/remote_control/RemoteControlC.nc:83,
+                 from RipsDataStoreC.nc:37,
+                 from RipsOneHopC.nc:34:
+In component `RemoteControlM':
+/home/rgao/betta/tinyos-main/tos/lib/remote_control/RemoteControlM.nc:53: interface ReceiveMsg not found
+/home/rgao/betta/tinyos-main/tos/lib/remote_control/RemoteControlM.nc:54: interface SendMsg not found
+/home/rgao/betta/tinyos-main/tos/lib/remote_control/RemoteControlM.nc:55: too few arguments to interface `Timer'
+/home/rgao/betta/tinyos-main/tos/lib/remote_control/RemoteControlM.nc:79: syntax error before `tosMsg'
+/home/rgao/betta/tinyos-main/tos/lib/remote_control/RemoteControlM.nc:122: syntax error before `StdControl'
+/home/rgao/betta/tinyos-main/tos/lib/remote_control/RemoteControlM.nc:128: syntax error before `do'
+RemoteControlM: `Timer.fired' not implemented
+RemoteControlM: `DataCommand.ack' not implemented
+RemoteControlM: `IntCommand.ack' not implemented
+RemoteControlM: `StdControl.start' not implemented
+RemoteControlM: `StdControl.stop' not implemented
+In component `RemoteControlC':
+/home/rgao/betta/tinyos-main/tos/lib/remote_control/RemoteControlC.nc:84: component GenericComm not found
+/home/rgao/betta/tinyos-main/tos/lib/remote_control/RemoteControlC.nc:84: component TimerC not found
+/home/rgao/betta/tinyos-main/tos/lib/remote_control/RemoteControlC.nc:84: component FloodRoutingC not found
+/home/rgao/betta/tinyos-main/tos/lib/remote_control/RemoteControlC.nc:89: component GradientPolicyC not found
+/home/rgao/betta/tinyos-main/tos/lib/remote_control/RemoteControlC.nc:92: cannot find `StdControl'
+/home/rgao/betta/tinyos-main/tos/lib/remote_control/RemoteControlC.nc:93: cannot find `StdControl'
+/home/rgao/betta/tinyos-main/tos/lib/remote_control/RemoteControlC.nc:94: cannot find `StdControl'
+/home/rgao/betta/tinyos-main/tos/lib/remote_control/RemoteControlC.nc:95: cannot find `StdControl'
+/home/rgao/betta/tinyos-main/tos/lib/remote_control/RemoteControlC.nc:101: cannot find `ReceiveMsg'
+/home/rgao/betta/tinyos-main/tos/lib/remote_control/RemoteControlC.nc:102: cannot find `SendMsg'
+/home/rgao/betta/tinyos-main/tos/lib/remote_control/RemoteControlC.nc:103: cannot find `Timer'
+/home/rgao/betta/tinyos-main/tos/lib/remote_control/RemoteControlC.nc:105: cannot find `FloodRouting'
+/home/rgao/betta/tinyos-main/tos/lib/remote_control/RemoteControlC.nc:106: cannot find `FloodingPolicy'
 In file included from RipsPhaseOffsetM.nc:38,
                  from RipsPhaseOffsetC.nc:39,
                  from RipsOneHopC.nc:34:
@@ -78,8 +77,6 @@ RipsDataCollection.nc:75: warning: location of shadowed declaration
 RipsDataCollection.nc:106: syntax error before `success'
 In component `RipsPhaseOffsetM':
 RipsPhaseOffsetM.nc:41: too few arguments to interface `Timer'
-RipsPhaseOffsetM.nc:42: interface ReceiveMsg not found
-RipsPhaseOffsetM.nc:43: interface SendMsg not found
 RipsPhaseOffsetM.nc: In function `masterCalculateRadioParams.runTask':
 RipsPhaseOffsetM.nc:104: interface has no command or event named `startCollection'
 RipsPhaseOffsetM.nc: At top level:
@@ -92,45 +89,45 @@ RipsPhaseOffsetM: `RipsPhaseOffset.result_t' not implemented
 RipsPhaseOffsetM: `StdControl.start' not implemented
 RipsPhaseOffsetM: `StdControl.stop' not implemented
 RipsPhaseOffsetM: `Timer.fired' not implemented
-In file included from ./RadioInclude/RSSILoggerC.nc:36,
+In file included from ./radio_include/RSSILoggerC.nc:36,
                  from RipsPhaseOffsetC.nc:39,
                  from RipsOneHopC.nc:34:
 In C file:
-./RadioInclude/RSSILoggerM.nc:27: C file Reset not found
-In file included from ./RadioInclude/RSSILoggerM.nc:35,
-                 from ./RadioInclude/RSSILoggerC.nc:36,
+./radio_include/RSSILoggerM.nc:27: C file Reset not found
+In file included from ./radio_include/RSSILoggerM.nc:35,
+                 from ./radio_include/RSSILoggerC.nc:36,
                  from RipsPhaseOffsetC.nc:39,
                  from RipsOneHopC.nc:34:
 In interface `RSSIDriver':
-./RadioInclude/RSSIDriver.nc:33: only commands and events can be defined in interfaces
-./RadioInclude/RSSIDriver.nc:33: warning: return-type defaults to `int'
-./RadioInclude/RSSIDriver.nc:33: syntax error before `acquire'
-./RadioInclude/RSSIDriver.nc:39: only commands and events can be defined in interfaces
-./RadioInclude/RSSIDriver.nc:39: warning: return-type defaults to `int'
-./RadioInclude/RSSIDriver.nc:39: redefinition of `result_t'
-./RadioInclude/RSSIDriver.nc:39: syntax error before `restore'
-./RadioInclude/RSSIDriver.nc:45: only commands and events can be defined in interfaces
-./RadioInclude/RSSIDriver.nc:45: warning: return-type defaults to `int'
-./RadioInclude/RSSIDriver.nc:45: redefinition of `result_t'
-./RadioInclude/RSSIDriver.nc:45: syntax error before `calibrateTransmit'
-./RadioInclude/RSSIDriver.nc:52: only commands and events can be defined in interfaces
-./RadioInclude/RSSIDriver.nc:52: warning: return-type defaults to `int'
-./RadioInclude/RSSIDriver.nc:52: redefinition of `result_t'
-./RadioInclude/RSSIDriver.nc:52: syntax error before `transmit'
-./RadioInclude/RSSIDriver.nc:58: only commands and events can be defined in interfaces
-./RadioInclude/RSSIDriver.nc:58: warning: return-type defaults to `int'
-./RadioInclude/RSSIDriver.nc:58: redefinition of `result_t'
-./RadioInclude/RSSIDriver.nc:58: syntax error before `calibrateReceive'
-./RadioInclude/RSSIDriver.nc:64: only commands and events can be defined in interfaces
-./RadioInclude/RSSIDriver.nc:64: warning: return-type defaults to `int'
-./RadioInclude/RSSIDriver.nc:64: redefinition of `result_t'
-./RadioInclude/RSSIDriver.nc:64: syntax error before `receive'
-./RadioInclude/RSSIDriver.nc:70: only commands and events can be defined in interfaces
-./RadioInclude/RSSIDriver.nc:70: warning: return-type defaults to `int'
-./RadioInclude/RSSIDriver.nc:70: redefinition of `result_t'
-./RadioInclude/RSSIDriver.nc:70: syntax error before `suspend'
-In file included from ./RadioInclude/RSSILoggerM.nc:36,
-                 from ./RadioInclude/RSSILoggerC.nc:36,
+./radio_include/RSSIDriver.nc:33: only commands and events can be defined in interfaces
+./radio_include/RSSIDriver.nc:33: warning: return-type defaults to `int'
+./radio_include/RSSIDriver.nc:33: syntax error before `acquire'
+./radio_include/RSSIDriver.nc:39: only commands and events can be defined in interfaces
+./radio_include/RSSIDriver.nc:39: warning: return-type defaults to `int'
+./radio_include/RSSIDriver.nc:39: redefinition of `result_t'
+./radio_include/RSSIDriver.nc:39: syntax error before `restore'
+./radio_include/RSSIDriver.nc:45: only commands and events can be defined in interfaces
+./radio_include/RSSIDriver.nc:45: warning: return-type defaults to `int'
+./radio_include/RSSIDriver.nc:45: redefinition of `result_t'
+./radio_include/RSSIDriver.nc:45: syntax error before `calibrateTransmit'
+./radio_include/RSSIDriver.nc:52: only commands and events can be defined in interfaces
+./radio_include/RSSIDriver.nc:52: warning: return-type defaults to `int'
+./radio_include/RSSIDriver.nc:52: redefinition of `result_t'
+./radio_include/RSSIDriver.nc:52: syntax error before `transmit'
+./radio_include/RSSIDriver.nc:58: only commands and events can be defined in interfaces
+./radio_include/RSSIDriver.nc:58: warning: return-type defaults to `int'
+./radio_include/RSSIDriver.nc:58: redefinition of `result_t'
+./radio_include/RSSIDriver.nc:58: syntax error before `calibrateReceive'
+./radio_include/RSSIDriver.nc:64: only commands and events can be defined in interfaces
+./radio_include/RSSIDriver.nc:64: warning: return-type defaults to `int'
+./radio_include/RSSIDriver.nc:64: redefinition of `result_t'
+./radio_include/RSSIDriver.nc:64: syntax error before `receive'
+./radio_include/RSSIDriver.nc:70: only commands and events can be defined in interfaces
+./radio_include/RSSIDriver.nc:70: warning: return-type defaults to `int'
+./radio_include/RSSIDriver.nc:70: redefinition of `result_t'
+./radio_include/RSSIDriver.nc:70: syntax error before `suspend'
+In file included from ./radio_include/RSSILoggerM.nc:36,
+                 from ./radio_include/RSSILoggerC.nc:36,
                  from RipsPhaseOffsetC.nc:39,
                  from RipsOneHopC.nc:34:
 In interface `SendBigMsg':
@@ -149,82 +146,75 @@ In interface `SendBigMsg':
 /home/rgao/betta/tinyos-main/tos/lib/bigmsg/SendBigMsg.nc:39: warning: location of shadowed declaration
 /home/rgao/betta/tinyos-main/tos/lib/bigmsg/SendBigMsg.nc:75: syntax error before `success'
 In component `RSSILoggerM':
-./RadioInclude/RSSILoggerM.nc:50: syntax error before `msg'
-./RadioInclude/RSSILoggerM.nc:52: syntax error before `result'
-./RadioInclude/RSSILoggerM.nc: In function `RSSILogger.check':
-./RadioInclude/RSSILoggerM.nc:54: `result' undeclared (first use in this function)
-./RadioInclude/RSSILoggerM.nc:55: `line' undeclared (first use in this function)
-./RadioInclude/RSSILoggerM.nc: In function `reportBuffer.runTask':
-./RadioInclude/RSSILoggerM.nc:108: interface has no command or event named `restore'
-./RadioInclude/RSSILoggerM.nc:109: interface has no command or event named `send'
-./RadioInclude/RSSILoggerM.nc: At top level:
-./RadioInclude/RSSILoggerM.nc:113: syntax error before `success'
-In file included from ./RadioInclude/RSSILoggerC.nc:36,
+./radio_include/RSSILoggerM.nc:50: syntax error before `msg'
+./radio_include/RSSILoggerM.nc:62: syntax error before `RSSILogger'
+./radio_include/RSSILoggerM.nc:69: warning: type defaults to `int' in declaration of `check_result'
+./radio_include/RSSILoggerM.nc:69: initializer element is not constant
+./radio_include/RSSILoggerM.nc:69: (near initialization for `check_result')
+./radio_include/RSSILoggerM.nc:69: warning: data definition has no type or storage class
+./radio_include/RSSILoggerM.nc:70: syntax error before `return'
+RSSILoggerM: `RSSILogger.record8' not implemented
+RSSILoggerM: `RSSILogger.getBufferStart' not implemented
+RSSILoggerM: `RSSILogger.report' not implemented
+RSSILoggerM: `RSSILogger.recordBuffer' not implemented
+RSSILoggerM: `RSSILogger.reset' not implemented
+RSSILoggerM: `RSSILogger.isBuggy' not implemented
+RSSILoggerM: `RSSILogger.result_t' not implemented
+RSSILoggerM: `RSSILogger.record16' not implemented
+RSSILoggerM: `RSSILogger.record32' not implemented
+RSSILoggerM: `RSSILogger.getLength' not implemented
+RSSILoggerM: `SendBigMsg.sendDone' not implemented
+In file included from ./radio_include/RSSILoggerC.nc:36,
                  from RipsPhaseOffsetC.nc:39,
                  from RipsOneHopC.nc:34:
 In component `RSSIDriverC':
-./RadioInclude/RSSIDriverC.nc:33: interface ADC not found
-In file included from ./RadioInclude/RSSIDriverC.nc:39,
-                 from ./RadioInclude/RSSILoggerC.nc:36,
+./radio_include/RSSIDriverC.nc:33: syntax error before `('
+In file included from ./radio_include/RSSIDriverC.nc:39,
+                 from ./radio_include/RSSILoggerC.nc:36,
                  from RipsPhaseOffsetC.nc:39,
                  from RipsOneHopC.nc:34:
-In C file:
-./RadioInclude/RSSIDriverM.nc:26: C file CC1000Const not found
 In component `RSSIDriverM':
-./RadioInclude/RSSIDriverM.nc:35: interface HPLCC1000 not found
-./RadioInclude/RSSIDriverM.nc:36: interface ADCControl not found
-./RadioInclude/RSSIDriverM.nc:39: interface CC1000Control not found
-./RadioInclude/RSSIDriverM.nc: In function `setNextFreq':
-./RadioInclude/RSSIDriverM.nc:63: `CC1K_F_REG' undeclared (first use in this function)
-./RadioInclude/RSSIDriverM.nc:64: interface has no command or event named `write'
-./RadioInclude/RSSIDriverM.nc:64: `CC1K_FREQ_2B' undeclared (first use in this function)
-./RadioInclude/RSSIDriverM.nc:64: `CC1K_FREQ_2A' undeclared (first use in this function)
-./RadioInclude/RSSIDriverM.nc:65: interface has no command or event named `write'
-./RadioInclude/RSSIDriverM.nc:65: `CC1K_FREQ_1B' undeclared (first use in this function)
-./RadioInclude/RSSIDriverM.nc:65: `CC1K_FREQ_1A' undeclared (first use in this function)
-./RadioInclude/RSSIDriverM.nc:66: interface has no command or event named `write'
-./RadioInclude/RSSIDriverM.nc:66: `CC1K_FREQ_0B' undeclared (first use in this function)
-./RadioInclude/RSSIDriverM.nc:66: `CC1K_FREQ_0A' undeclared (first use in this function)
-./RadioInclude/RSSIDriverM.nc: At top level:
-./RadioInclude/RSSIDriverM.nc:76: syntax error before `*'
-./RadioInclude/RSSIDriverM.nc: In function `execute':
-./RadioInclude/RSSIDriverM.nc:81: implicit declaration of function `PRG_RDB'
-./RadioInclude/RSSIDriverM.nc:81: `program' undeclared (first use in this function)
-./RadioInclude/RSSIDriverM.nc:81: wrong type argument to increment
-./RadioInclude/RSSIDriverM.nc:89: interface has no command or event named `read'
-./RadioInclude/RSSIDriverM.nc:89: `CC1K_CAL' undeclared (first use in this function)
-./RadioInclude/RSSIDriverM.nc:89: `CC1K_CAL_COMPLETE' undeclared (first use in this function)
-./RadioInclude/RSSIDriverM.nc:94: wrong type argument to increment
-./RadioInclude/RSSIDriverM.nc:99: implicit declaration of function `TOSH_uwait'
-./RadioInclude/RSSIDriverM.nc:102: `CC1K_MAIN' undeclared (first use in this function)
-./RadioInclude/RSSIDriverM.nc:102: case label does not reduce to an integer constant
-./RadioInclude/RSSIDriverM.nc:106: interface has no command or event named `write'
-./RadioInclude/RSSIDriverM.nc: At top level:
-./RadioInclude/RSSIDriverM.nc:112: syntax error before `prog_acquire'
-./RadioInclude/RSSIDriverM.nc:148: syntax error before `RSSIDriver'
-./RadioInclude/RSSIDriverM.nc:152: warning: type defaults to `int' in declaration of `saved_rx_power'
-./RadioInclude/RSSIDriverM.nc:152: conflicting types for `saved_rx_power'
-./RadioInclude/RSSIDriverM.nc:140: previous declaration of `saved_rx_power'
-./RadioInclude/RSSIDriverM.nc:152: interface has no command or event named `GetRFPower'
-./RadioInclude/RSSIDriverM.nc:152: warning: data definition has no type or storage class
-./RadioInclude/RSSIDriverM.nc:154: warning: type defaults to `int' in declaration of `ret'
-./RadioInclude/RSSIDriverM.nc:155: interface has no command or event named `init'
-./RadioInclude/RSSIDriverM.nc:156: interface has no command or event named `bindPort'
-./RadioInclude/RSSIDriverM.nc:157: `TOSH_ACTUAL_CC_RSSI_PORT' undeclared here (not in a function)
-./RadioInclude/RSSIDriverM.nc:158: interface has no command or event named `setSamplingRate'
-./RadioInclude/RSSIDriverM.nc:158: warning: data definition has no type or storage class
-./RadioInclude/RSSIDriverM.nc:160: syntax error before `if'
-./RadioInclude/RSSIDriverM.nc:163: old-style parameter lists not supported
-./RadioInclude/RSSIDriverM.nc:163: warning: return-type defaults to `int'
-./RadioInclude/RSSIDriverM.nc:163: conflicting types for `execute'
-./RadioInclude/RSSIDriverM.nc:76: previous declaration of `execute'
-./RadioInclude/RSSIDriverM.nc:163: warning: data definition has no type or storage class
-./RadioInclude/RSSIDriverM.nc:164: warning: type defaults to `int' in declaration of `freqReg'
-./RadioInclude/RSSIDriverM.nc:164: conflicting types for `freqReg'
-./RadioInclude/RSSIDriverM.nc:58: previous declaration of `freqReg'
-./RadioInclude/RSSIDriverM.nc:164: `CC1K_F_REG' undeclared here (not in a function)
-./RadioInclude/RSSIDriverM.nc:164: warning: data definition has no type or storage class
-./RadioInclude/RSSIDriverM.nc:167: syntax error before `call'
+./radio_include/RSSIDriverM.nc:35: interface HPLCC1000 not found
+./radio_include/RSSIDriverM.nc:36: interface ADCControl not found
+In file included from ./radio_include/RSSIDriverC.nc:39,
+                 from ./radio_include/RSSILoggerC.nc:36,
+                 from RipsPhaseOffsetC.nc:39,
+                 from RipsOneHopC.nc:34:
+./radio_include/RSSIDriverM.nc: In function `setNextFreq':
+./radio_include/RSSIDriverM.nc:64: interface has no command or event named `write'
+./radio_include/RSSIDriverM.nc:65: interface has no command or event named `write'
+./radio_include/RSSIDriverM.nc:66: interface has no command or event named `write'
+./radio_include/RSSIDriverM.nc: In function `execute':
+./radio_include/RSSIDriverM.nc:81: implicit declaration of function `PRG_RDB'
+./radio_include/RSSIDriverM.nc:89: interface has no command or event named `read'
+./radio_include/RSSIDriverM.nc:99: implicit declaration of function `TOSH_uwait'
+./radio_include/RSSIDriverM.nc:106: interface has no command or event named `write'
+./radio_include/RSSIDriverM.nc: At top level:
+./radio_include/RSSIDriverM.nc:148: syntax error before `RSSIDriver'
+./radio_include/RSSIDriverM.nc:152: warning: type defaults to `int' in declaration of `saved_rx_power'
+./radio_include/RSSIDriverM.nc:152: conflicting types for `saved_rx_power'
+./radio_include/RSSIDriverM.nc:140: previous declaration of `saved_rx_power'
+./radio_include/RSSIDriverM.nc:152: interface has no command or event named `GetRFPower'
+./radio_include/RSSIDriverM.nc:152: warning: data definition has no type or storage class
+./radio_include/RSSIDriverM.nc:154: warning: type defaults to `int' in declaration of `ret'
+./radio_include/RSSIDriverM.nc:155: interface has no command or event named `init'
+./radio_include/RSSIDriverM.nc:156: interface has no command or event named `bindPort'
+./radio_include/RSSIDriverM.nc:157: `TOSH_ACTUAL_CC_RSSI_PORT' undeclared here (not in a function)
+./radio_include/RSSIDriverM.nc:158: interface has no command or event named `setSamplingRate'
+./radio_include/RSSIDriverM.nc:158: warning: data definition has no type or storage class
+./radio_include/RSSIDriverM.nc:160: syntax error before `if'
+./radio_include/RSSIDriverM.nc:163: warning: declaration of `prog_acquire' shadows global declaration
+./radio_include/RSSIDriverM.nc:112: warning: location of shadowed declaration
+./radio_include/RSSIDriverM.nc:163: old-style parameter lists not supported
+./radio_include/RSSIDriverM.nc:163: warning: return-type defaults to `int'
+./radio_include/RSSIDriverM.nc:163: conflicting types for `execute'
+./radio_include/RSSIDriverM.nc:76: previous declaration of `execute'
+./radio_include/RSSIDriverM.nc:163: warning: data definition has no type or storage class
+./radio_include/RSSIDriverM.nc:164: warning: type defaults to `int' in declaration of `freqReg'
+./radio_include/RSSIDriverM.nc:164: conflicting types for `freqReg'
+./radio_include/RSSIDriverM.nc:58: previous declaration of `freqReg'
+./radio_include/RSSIDriverM.nc:164: warning: data definition has no type or storage class
+./radio_include/RSSIDriverM.nc:167: syntax error before `call'
 RSSIDriverM: `RSSIDriver.result_t' not implemented
 RSSIDriverM: `RSSIDriver.result_t' not implemented
 RSSIDriverM: `RSSIDriver.result_t' not implemented
@@ -233,19 +223,22 @@ RSSIDriverM: `RSSIDriver.result_t' not implemented
 RSSIDriverM: `RSSIDriver.result_t' not implemented
 RSSIDriverM: `RSSIDriver.result_t' not implemented
 In component `RSSIDriverC':
-./RadioInclude/RSSIDriverC.nc:39: component HPLCC1000M not found
-./RadioInclude/RSSIDriverC.nc:39: component ADCC not found
-./RadioInclude/RSSIDriverC.nc:39: component CC1000RadioC not found
-./RadioInclude/RSSIDriverC.nc:39: component CC1000ControlM not found
-./RadioInclude/RSSIDriverC.nc:42: cannot find `ADC'
-./RadioInclude/RSSIDriverC.nc:44: no match
-./RadioInclude/RSSIDriverC.nc:45: no match
-./RadioInclude/RSSIDriverC.nc:46: no match
-./RadioInclude/RSSIDriverC.nc:47: no match
-./RadioInclude/RSSIDriverC.nc:48: no match
+./radio_include/RSSIDriverC.nc:39: component HPLCC1000M not found
+./radio_include/RSSIDriverC.nc:39: component ADCC not found
+./radio_include/RSSIDriverC.nc:39: component CC1000RadioC not found
+./radio_include/RSSIDriverC.nc:39: component CC1000ControlM not found
+In file included from ./radio_include/RSSILoggerC.nc:36,
+                 from RipsPhaseOffsetC.nc:39,
+                 from RipsOneHopC.nc:34:
+./radio_include/RSSIDriverC.nc:42: syntax error before `('
+./radio_include/RSSIDriverC.nc:44: no match
+./radio_include/RSSIDriverC.nc:45: no match
+./radio_include/RSSIDriverC.nc:46: no match
+./radio_include/RSSIDriverC.nc:47: no match
+./radio_include/RSSIDriverC.nc:48: no match
 In file included from /home/rgao/betta/tinyos-main/tos/lib/bigmsg/SendBigMsgM.nc:26,
                  from /home/rgao/betta/tinyos-main/tos/lib/bigmsg/SendBigMsgC.nc:36,
-                 from ./RadioInclude/RSSILoggerC.nc:36,
+                 from ./radio_include/RSSILoggerC.nc:36,
                  from RipsPhaseOffsetC.nc:39,
                  from RipsOneHopC.nc:34:
 In C file:
@@ -260,19 +253,18 @@ SendBigMsgM: `SendBigMsg.result_t' not implemented
 SendBigMsgM: `StdControl.start' not implemented
 SendBigMsgM: `StdControl.stop' not implemented
 In component `SendBigMsgC':
-/home/rgao/betta/tinyos-main/tos/lib/bigmsg/SendBigMsgC.nc:36: component GenericComm not found
 /home/rgao/betta/tinyos-main/tos/lib/bigmsg/SendBigMsgC.nc:41: cannot find `SendMsg'
 In component `RSSILoggerC':
-./RadioInclude/RSSILoggerC.nc:40: cannot find `StdControl'
+./radio_include/RSSILoggerC.nc:40: cannot find `StdControl'
 In file included from RipsDataCollectionM.nc:38,
                  from RipsDataCollectionC.nc:38,
                  from RipsPhaseOffsetC.nc:40,
                  from RipsOneHopC.nc:34:
 In interface `RSSIEngine':
-./RadioInclude/RSSIEngine.nc:31: syntax error before `success'
-./RadioInclude/RSSIEngine.nc:44: only commands and events can be defined in interfaces
-./RadioInclude/RSSIEngine.nc:44: warning: return-type defaults to `int'
-./RadioInclude/RSSIEngine.nc:44: syntax error before `receiveSync'
+./radio_include/RSSIEngine.nc:31: syntax error before `success'
+./radio_include/RSSIEngine.nc:44: only commands and events can be defined in interfaces
+./radio_include/RSSIEngine.nc:44: warning: return-type defaults to `int'
+./radio_include/RSSIEngine.nc:44: syntax error before `receiveSync'
 In component `RipsDataCollectionM':
 RipsDataCollectionM.nc:90: syntax error before `RipsDataCollection'
 RipsDataCollectionM.nc:93: warning: type defaults to `int' in declaration of `numRcvs'
@@ -281,6 +273,8 @@ RipsDataCollectionM.nc:89: previous declaration of `numRcvs'
 RipsDataCollectionM.nc:93: warning: data definition has no type or storage class
 RipsDataCollectionM.nc:94: syntax error before `if'
 RipsDataCollectionM.nc:101: warning: type defaults to `int' in declaration of `tuning'
+RipsDataCollectionM.nc:101: conflicting types for `tuning'
+RipsDataCollectionM.nc:59: previous declaration of `tuning'
 RipsDataCollectionM.nc:101: initializer element is not constant
 RipsDataCollectionM.nc:101: (near initialization for `tuning')
 RipsDataCollectionM.nc:101: warning: data definition has no type or storage class
@@ -323,39 +317,40 @@ In file included from RipsDataCollectionC.nc:38,
                  from RipsPhaseOffsetC.nc:40,
                  from RipsOneHopC.nc:34:
 In component `RSSIEngineC':
-./RadioInclude/RSSIEngineC.nc:39: component SysTimeC not found
-./RadioInclude/RSSIEngineC.nc:39: component SysTimeStampingC not found
-In file included from ./RadioInclude/RSSIEngineC.nc:40,
+./radio_include/RSSIEngineC.nc:39: component SysTimeC not found
+./radio_include/RSSIEngineC.nc:39: component SysTimeStampingC not found
+In file included from ./radio_include/RSSIEngineC.nc:40,
                  from RipsDataCollectionC.nc:38,
                  from RipsPhaseOffsetC.nc:40,
                  from RipsOneHopC.nc:34:
 In C file:
-./RadioInclude/RSSIEngineM.nc:34: C file SysTime not found
-./RadioInclude/RSSIEngineM.nc:35: C file SysAlarm not found
+./radio_include/RSSIEngineM.nc:34: C file SysTime not found
+./radio_include/RSSIEngineM.nc:35: C file SysAlarm not found
 In component `RSSIEngineM':
-./RadioInclude/RSSIEngineM.nc:46: interface SysTime not found
-./RadioInclude/RSSIEngineM.nc:47: interface SysAlarm not found
-./RadioInclude/RSSIEngineM.nc:48: interface TimeStamping not found
-./RadioInclude/RSSIEngineM.nc:61: syntax error before `syncMsg'
-./RadioInclude/RSSIEngineM.nc:89:1: warning: "CHECK" redefined
-In file included from ./RadioInclude/RSSIEngineM.nc:1:
+./radio_include/RSSIEngineM.nc:46: interface SysTime not found
+./radio_include/RSSIEngineM.nc:47: interface SysAlarm not found
+./radio_include/RSSIEngineM.nc:48: interface TimeStamping not found
+./radio_include/RSSIEngineM.nc:51: syntax error before `('
+./radio_include/RSSIEngineM.nc:61: syntax error before `syncMsg'
+./radio_include/RSSIEngineM.nc:89:1: warning: "CHECK" redefined
+In file included from ./radio_include/RSSIEngineM.nc:1:
 <built-in>: warning: this is the location of the previous definition
-./RadioInclude/RSSIEngineM.nc: In function `sendSyncMH.runTask':
-./RadioInclude/RSSIEngineM.nc:103: `syncMsg' undeclared (first use in this function)
-./RadioInclude/RSSIEngineM.nc:104: interface has no command or event named `getTime32'
-./RadioInclude/RSSIEngineM.nc:106: subscripted value is neither array nor pointer
-./RadioInclude/RSSIEngineM.nc:107: subscripted value is neither array nor pointer
-./RadioInclude/RSSIEngineM.nc:108: subscripted value is neither array nor pointer
-./RadioInclude/RSSIEngineM.nc:108: `TOS_LOCAL_ADDRESS' undeclared (first use in this function)
-./RadioInclude/RSSIEngineM.nc:111: subscripted value is neither array nor pointer
-./RadioInclude/RSSIEngineM.nc:113: interface has no command or event named `send'
-./RadioInclude/RSSIEngineM.nc:113: `TOS_BCAST_ADDR' undeclared (first use in this function)
-./RadioInclude/RSSIEngineM.nc:114: interface has no command or event named `addStamp2'
-./RadioInclude/RSSIEngineM.nc: In function `RSSIEngine.sendSyncMH':
-./RadioInclude/RSSIEngineM.nc:125: `DATA_LENGTH' undeclared (first use in this function)
-./RadioInclude/RSSIEngineM.nc:127: `syncMsg' undeclared (first use in this function)
-./RadioInclude/RSSIEngineM.nc: At top level:
-./RadioInclude/RSSIEngineM.nc:133: syntax error before `SendMsgMH'
+./radio_include/RSSIEngineM.nc: In function `sendSyncMH.runTask':
+./radio_include/RSSIEngineM.nc:103: `syncMsg' undeclared (first use in this function)
+./radio_include/RSSIEngineM.nc:104: interface has no command or event named `getTime32'
+./radio_include/RSSIEngineM.nc:106: subscripted value is neither array nor pointer
+./radio_include/RSSIEngineM.nc:107: subscripted value is neither array nor pointer
+./radio_include/RSSIEngineM.nc:108: subscripted value is neither array nor pointer
+./radio_include/RSSIEngineM.nc:108: `TOS_LOCAL_ADDRESS' undeclared (first use in this function)
+./radio_include/RSSIEngineM.nc:111: subscripted value is neither array nor pointer
+./radio_include/RSSIEngineM.nc:113: interface has no command or event named `send'
+./radio_include/RSSIEngineM.nc:113: `TOS_BCAST_ADDR' undeclared (first use in this function)
+./radio_include/RSSIEngineM.nc:114: interface has no command or event named `addStamp2'
+./radio_include/RSSIEngineM.nc: In function `RSSIEngine.sendSyncMH':
+./radio_include/RSSIEngineM.nc:125: `DATA_LENGTH' undeclared (first use in this function)
+./radio_include/RSSIEngineM.nc:127: `syncMsg' undeclared (first use in this function)
+./radio_include/RSSIEngineM.nc: At top level:
+./radio_include/RSSIEngineM.nc:133: syntax error before `SendMsgMH'
 RSSIEngineM: `RSSIEngine.recordBlock' not implemented
 RSSIEngineM: `RSSIEngine.suspendBlock' not implemented
 RSSIEngineM: `RSSIEngine.calibrateTransmit' not implemented
@@ -371,28 +366,31 @@ RSSIEngineM: `RSSIEngine.resetElapsedTime' not implemented
 RSSIEngineM: `RSSIEngine.ripsBlock' not implemented
 RSSIEngineM: `taskStep.runTask' not implemented
 In component `RSSIEngineC':
-./RadioInclude/RSSIEngineC.nc:44: cannot find `StdControl'
-./RadioInclude/RSSIEngineC.nc:46: no match
-./RadioInclude/RSSIEngineC.nc:47: no match
-./RadioInclude/RSSIEngineC.nc:48: no match
-./RadioInclude/RSSIEngineC.nc:49: cannot find `ReceiveMsg'
-./RadioInclude/RSSIEngineC.nc:50: cannot find `SendMsg'
+./radio_include/RSSIEngineC.nc:52: syntax error before `('
+./radio_include/RSSIEngineC.nc:44: cannot find `StdControl'
+./radio_include/RSSIEngineC.nc:46: no match
+./radio_include/RSSIEngineC.nc:47: no match
+./radio_include/RSSIEngineC.nc:48: no match
+./radio_include/RSSIEngineC.nc:49: cannot find `ReceiveMsg'
+./radio_include/RSSIEngineC.nc:50: cannot find `SendMsg'
 In component `RipsDataCollectionC':
 RipsDataCollectionC.nc:47: cannot find `SendMsg'
 In component `RipsPhaseOffsetC':
-RipsPhaseOffsetC.nc:40: component TimerC not found
 RipsPhaseOffsetC.nc:49: cannot find `Timer'
 RipsPhaseOffsetC.nc:50: cannot find `ReceiveMsg'
 RipsPhaseOffsetC.nc:51: cannot find `SendMsg'
 RipsPhaseOffsetC.nc:53: cannot find `ReceiveMsg'
 RipsPhaseOffsetC.nc:54: cannot find `SendMsg'
+In file included from /home/rgao/betta/tinyos-main/tos/lib/remote_control/LedCommandsC.nc:42,
+                 from RipsOneHopC.nc:34:
+In component `LedCommandsM':
+/home/rgao/betta/tinyos-main/tos/lib/remote_control/LedCommandsM.nc:72: syntax error before `StdControl'
+LedCommandsM: `StdControl.start' not implemented
+LedCommandsM: `StdControl.stop' not implemented
+In component `LedCommandsC':
+/home/rgao/betta/tinyos-main/tos/lib/remote_control/LedCommandsC.nc:49: cannot find `StdControl'
 In component `RipsOneHopC':
-RipsOneHopC.nc:36: component LedCommandsC not found
-RipsOneHopC.nc:36: component GradientPolicyC not found
-RipsOneHopC.nc:36: component FloodRoutingC not found
-RipsOneHopC.nc:38: cannot find `StdControl'
-RipsOneHopC.nc:42: cannot find `Timer'
-RipsOneHopC.nc:45: cannot find `DataCommand'
-RipsOneHopC.nc:48: cannot find `FloodRouting'
-RipsOneHopC.nc:49: cannot find `FloodingPolicy'
+RipsOneHopC.nc:40: cannot find `StdControl'
+RipsOneHopC.nc:53: cannot find `FloodRouting'
+RipsOneHopC.nc:54: cannot find `FloodingPolicy'
 make: *** [exe0] Error 1

@@ -32,7 +32,7 @@ module RipsOneHopM
 {
         provides 
         {
-		    interface StdControl;
+	    interface StdControl;
             interface DataCommand as StartMeasurementCommand;
         }
 
@@ -40,12 +40,14 @@ module RipsOneHopM
         {
             interface StdControl as SubControl;
             interface Leds;
-            interface Timer;
+/*rgao: updated timec to TimerMilliC*/
+/*          interface Timer;     */
+	    interface Timer<TMilli> as Timer0;
             interface RSSILogger;
             interface RipsDataStore;
             interface RipsPhaseOffset;
             interface FloodRouting;
-    }
+        }
 }
 
 implementation
@@ -74,12 +76,12 @@ implementation
 
         seqNumber  = ((struct StartCommand *)data)->seqNum;
         assistID = ((struct StartCommand *)data)->assistID;
-        if (!call Timer.start(TIMER_ONE_SHOT, 500)){ //wait until the radio comm caused by remote ctl dies
+        if (!call Timer0.start(TIMER_ONE_SHOT, 500)){ //wait until the radio comm caused by remote ctl dies
             state = STATE_READY;
         }
     } 
 
-    event result_t Timer.fired(){
+    event result_t Timer0.fired(){
         if (!call RipsPhaseOffset.startRanging(seqNumber, assistID))
             state = STATE_READY;
 

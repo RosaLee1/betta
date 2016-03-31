@@ -35,7 +35,7 @@ configuration RipsDataCollectionC
 
 implementation
 {
-	components Main, RipsDataCollectionM, RipsDataStoreC, RSSIEngineC, LedsC, GenericComm;
+	components MainC, RipsDataCollectionM, RipsDataStoreC, RSSIEngineC, LedsC, GenericComm;
 
 	RipsDataCollection = RipsDataCollectionM;
 	StdControl = RipsDataCollectionM;

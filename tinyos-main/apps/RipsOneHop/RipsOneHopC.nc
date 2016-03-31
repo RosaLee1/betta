@@ -31,20 +31,25 @@ configuration RipsOneHopC
 
 implementation
 {
-	components Main, RipsOneHopM, RipsDataStoreC, RipsPhaseOffsetC, RSSILoggerC,
-	        LedsC, TimerC, 
-            RemoteControlC, LedCommandsC, GradientPolicyC, FloodRoutingC;
+	components MainC, RipsOneHopM, RipsDataStoreC, RipsPhaseOffsetC, RSSILoggerC, LedsC, RemoteControlC, LedCommandsC, GradientPolicyC, FloodRoutingC;
 
-	Main.StdControl		-> RipsOneHopM;
+/*rgao: updated timec to TimerMilliC*/
+/*	components TimerC;    */
+	components new TimerMilliC();
+
+	MainC.StdControl -> RipsOneHopM;
 	RipsOneHopM.SubControl -> RipsPhaseOffsetC;
 
-	RipsOneHopM.Leds    -> LedsC;
-	RipsOneHopM.Timer	-> TimerC.Timer[unique("Timer")];
+	RipsOneHopM.Leds -> LedsC;
 
-    RipsOneHopM.RSSILogger	-> RSSILoggerC;
+/*rgao: updated timec to TimerMilliC*/
+/*	RipsOneHopM.Timer -> TimerC.Timer[unique("Timer")];   */
+	RipsOneHopM.Timer0 -> TimerMilliC;
+
+    	RipsOneHopM.RSSILogger -> RSSILoggerC;
 	RemoteControlC.DataCommand[0x12]	-> RipsOneHopM.StartMeasurementCommand;
-    RipsOneHopM.RipsDataStore -> RipsDataStoreC;
+        RipsOneHopM.RipsDataStore -> RipsDataStoreC;
 	RipsOneHopM.RipsPhaseOffset -> RipsPhaseOffsetC;
-    RipsOneHopM.FloodRouting -> FloodRoutingC.FloodRouting[RIPSAPP_ID];
-    FloodRoutingC.FloodingPolicy[RIPSAPP_ID] -> GradientPolicyC;
+    	RipsOneHopM.FloodRouting -> FloodRoutingC.FloodRouting[RIPSAPP_ID];
+    	FloodRoutingC.FloodingPolicy[RIPSAPP_ID] -> GradientPolicyC;
 }

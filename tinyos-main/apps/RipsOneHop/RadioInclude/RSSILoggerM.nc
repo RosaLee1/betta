@@ -49,11 +49,25 @@ implementation
 	norace uint16_t error = 0;
 	TOS_Msg msg;
 	
-	async command bool RSSILogger.check(result_t result, uint16_t line)
+/*rgao: in tinyos1, SUCCESS was a non-zero error code, while it is zero error code in tinyos2*/
+/*rgao: seems that in tinyos2, command only returns void or result_t*/
+/*	async command bool RSSILogger.check(result_t result, uint16_t line)
+*	{
+*		if( error == 0 && !result )
+*			error = line;
+*		return error == 0;
+*	}
+*/
+
+	async command result_t RSSILogger.check(result_t result, uint16_t line)
 	{
+		result_t check_result;
+
 		if( error == 0 && !result )
 			error = line;
-		return error == 0;
+
+		check_result = (error == 0) ? (SUCCESS) : (FAIL);
+		return check_result;
 	}
 
 	inline async command bool RSSILogger.isBuggy()

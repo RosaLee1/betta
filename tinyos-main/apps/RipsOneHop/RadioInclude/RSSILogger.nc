@@ -35,7 +35,7 @@ interface RSSILogger
 	 * then turns the radio back on and reports the error.
 	 * Returns SUCCESS if no check has failed so far.
 	 */
-	async command bool check(result_t result, uint16_t line);
+	async command result_t check(result_t result, uint16_t line);
 
 	/**
 	 * Returns TRUE if one of the previous checks failed.

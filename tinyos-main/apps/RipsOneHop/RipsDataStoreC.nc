@@ -34,7 +34,7 @@ configuration RipsDataStoreC
 
 implementation
 {
-	components Main, RipsDataStoreM, RemoteControlC;
+	components MainC, RipsDataStoreM, RemoteControlC;
 
 	RipsDataStore = RipsDataStoreM;
 	
