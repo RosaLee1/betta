@@ -87,7 +87,7 @@ implementation
     
     norace void* dataBuffer;
     norace uint8_t numRcvs;
-    command	result_t RipsDataCollection.startCollection(uint8_t seqNum, uint16_t assistant, uint8_t collectionType)
+    command	error_t RipsDataCollection.startCollection(uint8_t seqNum, uint16_t assistant, uint8_t collectionType)
     {
         uint8_t tmpNumHops = 0, tmpHopType = (params->algorithmType&0xF0);
         numRcvs = 0xFF;
@@ -145,7 +145,7 @@ implementation
 		return SUCCESS;
     }
 
-    event result_t RSSIEngine.receiveSync(uint8_t sender, void	*data, uint8_t length)
+    event error_t RSSIEngine.receiveSync(uint8_t sender, void	*data, uint8_t length)
     {
         struct SyncPacket* inPacket = data;
                 
@@ -187,7 +187,7 @@ implementation
 		return SUCCESS;
     }
     
-    result_t updateParams()
+    error_t updateParams()
     {
         if( ++currentHop > syncPacket->numHops ){
             if ((syncPacket->hopType&0x0F) == TUNE_2_VEE_HOPA){
@@ -234,7 +234,7 @@ implementation
 	    NEXT_STATE(STATE_READY);
 	    signal RipsDataCollection.collectionEnded(FAIL);
 	}
-	event result_t SendDBGMsg.sendDone(TOS_MsgPtr p, result_t success)
+	event error_t SendDBGMsg.sendDone(TOS_MsgPtr p, error_t success)
 	{  
 	    call Leds.set(6);
 	    NEXT_STATE(STATE_READY);
@@ -243,7 +243,7 @@ implementation
 	}
 
 
-    async event void RSSIEngine.done(result_t success)
+    async event void RSSIEngine.done(error_t success)
 	{
         if (state == STATE_STOPPED){
             call RSSIEngine.restore();
@@ -396,7 +396,7 @@ implementation
 		}
 	}
 
-	command result_t StdControl.init()
+	command error_t StdControl.init()
 	{
 	    channels = call RipsDataStore.getChannels();
 	    params = call RipsDataStore.getParams();
@@ -404,14 +404,14 @@ implementation
 		return SUCCESS;
 	}
 
-	command result_t StdControl.start()
+	command error_t StdControl.start()
 	{
 	    NEXT_STATE(STATE_READY);
 
 		return SUCCESS;
 	}
 
-	command result_t StdControl.stop()
+	command error_t StdControl.stop()
 	{
 	    NEXT_STATE(STATE_STOPPED);
 		return SUCCESS;

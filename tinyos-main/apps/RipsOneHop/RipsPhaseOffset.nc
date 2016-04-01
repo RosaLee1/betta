@@ -45,7 +45,7 @@ interface RipsPhaseOffset
 	 * procedure might last up to a couple of seconds. Returns FAIL if the operation 
 	 * cannot be initiated for some reason.
 	 */
-	command result_t startRanging(uint8_t seqNumber, uint16_t assistant);
+	command error_t startRanging(uint8_t seqNumber, uint16_t assistant);
 
 	/**
 	 * This event will be fired on the receiver nodes when the ranging begins.
@@ -59,7 +59,7 @@ interface RipsPhaseOffset
     /**
      * Fired on all nodes: master, assistant and receivers, to allow state-clearup.
      */
-    async event void measurementEnded(result_t res);
+    async event void measurementEnded(error_t res);
 
 	/**
 	 * This event is fired on each slave node to report the frequency and 

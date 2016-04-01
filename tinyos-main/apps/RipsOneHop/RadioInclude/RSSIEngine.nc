@@ -28,7 +28,7 @@ interface RSSIEngine
 	/**
 	 * This event is fired after the completion of each command.
 	 */
-	async event void done(result_t success);
+	async event void done(error_t success);
 	
 	/**
 	 * Initiates the synchronization of the current node and its
@@ -41,7 +41,7 @@ interface RSSIEngine
 	 * On the neighbors this event is called when the synchronization
 	 * message is received.
 	 */
-	event result_t receiveSync(uint8_t sender, void *data, uint8_t length); 
+	event error_t receiveSync(uint8_t sender, void *data, uint8_t length); 
 
 	/**
 	 * Returns the elapsed time since the last sync point/command.

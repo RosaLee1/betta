@@ -81,7 +81,7 @@ implementation
         }
     } 
 
-    event result_t Timer0.fired(){
+    event error_t Timer0.fired(){
         if (!call RipsPhaseOffset.startRanging(seqNumber, assistID))
             state = STATE_READY;
 
@@ -93,7 +93,7 @@ implementation
         seqNumber = seqNum;
     }
 
-    async event void RipsPhaseOffset.measurementEnded(result_t result){
+    async event void RipsPhaseOffset.measurementEnded(error_t result){
         state = STATE_READY;
     }
 
@@ -144,7 +144,7 @@ implementation
         // (2) just broadcasting the whole buffer one hop, use net.tinyos.mcenter.BigMSGDisplay to receive it in java
         //call RSSILogger.report();
     }
-    event result_t FloodRouting.receive(void *data){
+    event error_t FloodRouting.receive(void *data){
         return SUCCESS;
     }
 	event void RSSILogger.reportDone() 
@@ -162,7 +162,7 @@ implementation
         }
     }
 
-    command result_t StdControl.init()
+    command error_t StdControl.init()
     {
         routingBuffer = call RipsDataStore.getRoutingBuffer();
         call Leds.init();
@@ -171,14 +171,14 @@ implementation
         return SUCCESS;
     }
 
-    command result_t StdControl.stop()
+    command error_t StdControl.stop()
     {
         call SubControl.stop();
         state = STATE_STOPPED;
         return SUCCESS;
     }
 
-    command result_t StdControl.start()
+    command error_t StdControl.start()
     {
         call SubControl.start();
         call FloodRouting.init(sizeof(struct RoutingPacket), ROUTING_UNIQUE_SIZE, routingBuffer, call RipsDataStore.getRoutingBufferSize());

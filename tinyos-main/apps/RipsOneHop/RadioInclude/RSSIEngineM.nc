@@ -130,7 +130,7 @@ implementation
         
         CHECK_TASK(post sendSyncMH());
     }
-    event result_t SendMsgMH.sendDone(TOS_MsgPtr p, result_t success)
+    event error_t SendMsgMH.sendDone(TOS_MsgPtr p, error_t success)
     {
         return SUCCESS;
     }
@@ -488,7 +488,7 @@ implementation
 //<------------------------------------------ RIPS_MARKER_END
     }
     
-    async event result_t ADC.dataReady(uint16_t data)
+    async event error_t ADC.dataReady(uint16_t data)
     {
         uint16_t filtdsample = 0;
         

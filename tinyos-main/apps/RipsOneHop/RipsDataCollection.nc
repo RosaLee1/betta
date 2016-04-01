@@ -72,7 +72,7 @@ interface RipsDataCollection
 	 * cannot be initiated for some reason. Parameters for transmission (remote command)
 	 * need to be set before startCollection is called.
 	 */
-	command result_t startCollection(uint8_t seqNum, uint16_t assistant, uint8_t collectionType);
+	command error_t startCollection(uint8_t seqNum, uint16_t assistant, uint8_t collectionType);
 
 	/**
 	 * This event will be fired on each participating node except for the master, 
@@ -103,6 +103,6 @@ interface RipsDataCollection
 	 * the assistant when the data collection terminated. FAIL indicates that this
 	 * node was not able to perform its role in the data collection. 
 	 */
-	async event void collectionEnded(result_t success);
+	async event void collectionEnded(error_t success);
 	
 }

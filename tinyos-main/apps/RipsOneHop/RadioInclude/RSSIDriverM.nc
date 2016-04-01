@@ -145,9 +145,9 @@ implementation
 //#endif
 // can make this work if we figure out how to get the current freq (other than storing the values of gCurrentParameters array)
 
-	command result_t RSSIDriver.acquire()
+	command error_t RSSIDriver.acquire()
 	{
-		result_t ret;
+		error_t ret;
 		
 	    saved_rx_power = call CC1000Control.GetRFPower();
 	    
@@ -171,9 +171,9 @@ implementation
 	}
 
 
-	command result_t RSSIDriver.restore()
+	command error_t RSSIDriver.restore()
 	{
-		result_t ret;
+		error_t ret;
 
 		ret = call CommControl.stop();
 		ret &= call CC1000StdControl.init();
@@ -203,7 +203,7 @@ implementation
 		PROG_END,
 	};
 
-	command result_t RSSIDriver.calibrateTransmit(int8_t channel)
+	command error_t RSSIDriver.calibrateTransmit(int8_t channel)
 	{
 		channelFreq = TX_FREQ + (uint32_t)CHANNEL_SEP * channel;
 		setNextFreq(channelFreq);
@@ -218,7 +218,7 @@ implementation
 		PROG_END,
 	};
 	
-	async command result_t RSSIDriver.transmit(uint8_t strength, int16_t tuning)
+	async command error_t RSSIDriver.transmit(uint8_t strength, int16_t tuning)
 	{
 		setNextFreq(channelFreq + tuning);
 		execute(prog_transmit);
@@ -241,7 +241,7 @@ implementation
 		PROG_END,
 	};
 	
-	command result_t RSSIDriver.calibrateReceive(int8_t channel)
+	command error_t RSSIDriver.calibrateReceive(int8_t channel)
 	{
 		channelFreq = RX_FREQ + (uint32_t)CHANNEL_SEP * channel;
 		setNextFreq(channelFreq);
@@ -257,7 +257,7 @@ implementation
 		PROG_END,
 	};
 	
-	async command result_t RSSIDriver.receive()
+	async command error_t RSSIDriver.receive()
 	{
 		execute(prog_receive);
 		return SUCCESS;
@@ -270,7 +270,7 @@ implementation
 		PROG_END,
 	};
 	
-	async command result_t RSSIDriver.suspend()
+	async command error_t RSSIDriver.suspend()
 	{
 		execute(prog_suspend);
 		return SUCCESS;

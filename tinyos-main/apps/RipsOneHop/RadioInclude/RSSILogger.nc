@@ -35,7 +35,9 @@ interface RSSILogger
 	 * then turns the radio back on and reports the error.
 	 * Returns SUCCESS if no check has failed so far.
 	 */
-	async command result_t check(result_t result, uint16_t line);
+/** rgao: this command is not used by rips and it doesn't comply with tinyos2 *command standard, so comment this out
+*	async command error_t check(error_t result, uint16_t line);
+*/
 
 	/**
 	 * Returns TRUE if one of the previous checks failed.

@@ -106,14 +106,14 @@ implementation
     };
 
  
-    event result_t Timer.fired()
+    event error_t Timer.fired()
     {
         post masterCalculateRadioParams();
 
         return FAIL;
     }
     
-    command result_t RipsPhaseOffset.startRanging(uint8_t seqNumber, uint16_t assistant)
+    command error_t RipsPhaseOffset.startRanging(uint8_t seqNumber, uint16_t assistant)
     {
         uint8_t tuningType, tuningState;
         struct DataCollectionParams *params = (struct DataCollectionParams*)(call RipsDataStore.getParams());
@@ -284,7 +284,7 @@ implementation
         state = STATE_READY;
     };
 
-    event result_t SendMsg.sendDone(TOS_MsgPtr p, result_t success)
+    event error_t SendMsg.sendDone(TOS_MsgPtr p, error_t success)
     {
         return SUCCESS;
     }
@@ -369,7 +369,7 @@ implementation
             call Leds.yellowToggle();
     }
 
-    event result_t LogQuerySend.sendDone(TOS_MsgPtr p, result_t success){
+    event error_t LogQuerySend.sendDone(TOS_MsgPtr p, error_t success){
         if (p != &msg)
             return SUCCESS;
         call Leds.greenToggle();
@@ -423,7 +423,7 @@ implementation
         return pmsg;
     }
 
-    async event void RipsDataCollection.collectionEnded(result_t success)
+    async event void RipsDataCollection.collectionEnded(error_t success)
     {
         if (success == FAIL){
             call RSSILogger.reset();
@@ -443,14 +443,14 @@ implementation
             post slaveCollEnded();
     }
 
-    command result_t StdControl.init()
+    command error_t StdControl.init()
     {
         call SubControl.init();
         measurementSetup = call RipsDataStore.getMeasurementSetup();
         return SUCCESS;
     }
 
-    command result_t StdControl.start()
+    command error_t StdControl.start()
     {
         call SubControl.start();
         state = STATE_READY;
@@ -458,7 +458,7 @@ implementation
         return SUCCESS;
     }
 
-    command result_t StdControl.stop()
+    command error_t StdControl.stop()
     {
         call SubControl.stop();
         call RSSILogger.reset();
