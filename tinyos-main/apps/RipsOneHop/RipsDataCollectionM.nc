@@ -37,7 +37,7 @@ module RipsDataCollectionM
     {
         interface RSSIEngine;
         interface Leds;
-        interface SendMsg as SendDBGMsg;
+        interface AMSend as SendDBGMsg;
         interface RipsDataStore;
 	}
 }
@@ -224,7 +224,7 @@ implementation
     }
 
 
-	TOS_Msg msg;
+	message_t msg;
 	task void reportError()
 	{
 		*(uint16_t*)(&msg.data[0]) = TOS_NODE_ID;
@@ -234,7 +234,7 @@ implementation
 	    NEXT_STATE(STATE_READY);
 	    signal RipsDataCollection.collectionEnded(FAIL);
 	}
-	event error_t SendDBGMsg.sendDone(TOS_MsgPtr p, error_t success)
+	event error_t SendDBGMsg.sendDone(message_tPtr p, error_t success)
 	{  
 	    call Leds.set(6);
 	    NEXT_STATE(STATE_READY);

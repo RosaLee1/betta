@@ -38,12 +38,12 @@ module RipsPhaseOffsetM
         interface RipsDataCollection;
         interface RipsDataStore;
         interface Leds;
-        interface Timer;
-        interface ReceiveMsg;
-        interface SendMsg;
+        interface Timer<TMilli>;
+        interface Receive;
+        interface AMSend;
         interface StdControl    as SubControl;
-        interface SendMsg       as LogQuerySend; 
-        interface ReceiveMsg    as LogQueryRcv;
+        interface AMSend       as LogQuerySend; 
+        interface Receive    as LogQueryRcv;
     }
 }
 
@@ -106,11 +106,11 @@ implementation
     };
 
  
-    event error_t Timer.fired()
+    event void Timer.fired()
     {
         post masterCalculateRadioParams();
 
-        return FAIL;
+        //return FAIL;
     }
     
     command error_t RipsPhaseOffset.startRanging(uint8_t seqNumber, uint16_t assistant)
@@ -157,11 +157,11 @@ implementation
         {
             case STATE_TUNING1:
                 state = STATE_TUNING_DATA1;
-                call Timer.start(TIMER_ONE_SHOT, 1000);
+                call Timer.startOneShot(1000);
                 break;
             case STATE_TUNING2:
                 state = STATE_TUNING_DATA2;
-                call Timer.start(TIMER_ONE_SHOT, 1500);
+                call Timer.startOneShot(1500);
                 break;
             case STATE_MEASUREMENT:
                 state = STATE_MEASUREMENT_DATA;
@@ -243,14 +243,14 @@ implementation
 
     #define SUPPORT_LIMIT 4//number of data points to support the vee, necessary to accept this calibration result
     uint8_t veeSent;
-    TOS_Msg tuneDataMsg;
+    message_t tuneDataMsg;
     
     void task slaveFindVee(){
         int16_t vee1 = 0;
         struct DataCollectionParams *params = (struct DataCollectionParams *)(call RipsDataStore.getParams());
         uint8_t dataLength = call RSSILogger.getLength();
 
-        call Leds.greenToggle();
+        call Leds.led0Toggle();
         if (state == STATE_VEE2)
             vee1 = v_finder((struct RipsPacket*)(call RSSILogger.getBufferStart()),dataLength/2/sizeof(struct RipsPacket),0);
         else
@@ -279,12 +279,12 @@ implementation
         
         
         if (!veeSent && (state == STATE_VEE2 || state == STATE_VEE1))
-            call SendMsg.send(TOS_BCAST_ADDR, sizeof(struct TuneDataMsg), &tuneDataMsg);
+            call AMSend.send(TOS_BCAST_ADDR, &tuneDataMsg, sizeof(struct TuneDataMsg));
 
         state = STATE_READY;
     };
 
-    event error_t SendMsg.sendDone(TOS_MsgPtr p, error_t success)
+    event error_t AMSend.sendDone(message_t* p, error_t success)
     {
         return SUCCESS;
     }
@@ -361,23 +361,23 @@ implementation
     struct LogMsg{
         uint16_t nodeID;
     };  
-    TOS_Msg msg;
+    message_t msg;
     
     void task assistLogGoRequest(){
         ((struct LogMsg *)(msg.data))->nodeID = TOS_NODE_ID;
-        if (!call LogQuerySend.send(TOS_BCAST_ADDR, sizeof(struct LogMsg), &msg))
-            call Leds.yellowToggle();
+        if (!call LogQuerySend.send(TOS_BCAST_ADDR, &msg, sizeof(struct LogMsg)))
+            call Leds.led1Toggle();
     }
 
-    event error_t LogQuerySend.sendDone(TOS_MsgPtr p, error_t success){
+    event error_t LogQuerySend.sendDone(message_t* p, error_t success){
         if (p != &msg)
             return SUCCESS;
-        call Leds.greenToggle();
+        call Leds.led0Toggle();
 
         return SUCCESS;
     }
 
-    event TOS_MsgPtr LogQueryRcv.receive(TOS_MsgPtr msgp){
+    event message_t* LogQueryRcv.receive(message_t* msgp){
         uint16_t nodeID = ((struct LogMsg *)(msgp->data))->nodeID;
         call Leds.redToggle();
         if (state >= STATE_DATA_SENDING  && nodeID == TOS_NODE_ID){
@@ -402,7 +402,7 @@ implementation
             signal RipsPhaseOffset.measurementEnded(FAIL);
     }
     
-    event TOS_MsgPtr ReceiveMsg.receive(TOS_MsgPtr pmsg)
+    event message_tPtr Receive.receive(message_tPtr pmsg)
     {
         struct TuneDataMsg *tuneData = (struct TuneDataMsg*)(pmsg->data);
         //remove the last logger check, if you want to store more vees in the buffer and take e.g. median as the tuning value

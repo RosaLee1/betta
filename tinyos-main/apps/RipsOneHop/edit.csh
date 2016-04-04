@@ -1,7 +1,7 @@
-set files = `grep -l TOS_LOCAL_ADDRESS *.nc`
+set files = `grep -l TOS_Msg *.nc`
 
 foreach file ($files) 
-   sed -e 's/TOS_LOCAL_ADDRESS/TOS_NODE_ID/g' <$file >JUNK
+   sed -e 's/TOS_Msg/message_t/g' <$file >JUNK
    mv JUNK $file
 end
 

@@ -24,7 +24,7 @@
 
 COMPONENT=RipsOneHopC
 
-PFLAGS += -I%T/lib/BigMsg -I./RadioInclude -I%T/lib/RemoteControl -I%T/lib/OrderCorrectADC -I%T/lib/FloodRouting
+PFLAGS += -I%T/lib/BigMsg -I./RadioInclude -I%T/lib/RemoteControl -I%T/lib/misc -I%T/lib/dfrf -I%T/lib/OrderCorrectADC -I%T/lib/FloodRouting
 
 # rgao: beginning of the original makerules used by RIPS
 #Use the "new" Make structure

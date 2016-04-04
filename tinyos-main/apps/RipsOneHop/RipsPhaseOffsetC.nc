@@ -47,9 +47,9 @@ implementation
 	RipsPhaseOffsetM.RSSILogger -> RSSILoggerC;
 	RipsPhaseOffsetM.Leds -> LedsC;
 	RipsPhaseOffsetM.Timer	-> TimerC.Timer[unique("Timer")];
-	RipsPhaseOffsetM.ReceiveMsg		-> GenericComm.ReceiveMsg[TUNE_DATA_AM];
-	RipsPhaseOffsetM.SendMsg		-> GenericComm.SendMsg[TUNE_DATA_AM];
+	RipsPhaseOffsetM.Receive		-> GenericComm.Receive[TUNE_DATA_AM];
+	RipsPhaseOffsetM.AMSend		-> GenericComm.AMSend[TUNE_DATA_AM];
 	RipsPhaseOffsetM.SubControl     -> RipsDataCollectionC;
-	RipsPhaseOffsetM.LogQueryRcv		-> GenericComm.ReceiveMsg[0x11];
-	RipsPhaseOffsetM.LogQuerySend		-> GenericComm.SendMsg[0x11];
+	RipsPhaseOffsetM.LogQueryRcv		-> GenericComm.Receive[0x11];
+	RipsPhaseOffsetM.LogQuerySend		-> GenericComm.AMSend[0x11];
 }

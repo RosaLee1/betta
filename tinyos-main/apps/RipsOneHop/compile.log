@@ -1,128 +1,31 @@
 mkdir -p build/mica2
     compiling RipsOneHopC to a mica2 binary
-ncc -o build/mica2/main.exe  -Os -I%T/lib/BigMsg -I./RadioInclude -I%T/lib/RemoteControl -I%T/lib/OrderCorrectADC -I%T/lib/FloodRouting -fnesc-separator=__ -Wall -Wshadow -Wnesc-all -target=mica2 -fnesc-cfile=build/mica2/app.c -board=micasb -DDEFINED_TOS_AM_GROUP=0x22 --param max-inline-insns-single=100000 -DIDENT_APPNAME=\"RipsOneHopC\" -DIDENT_USERNAME=\"rgao\" -DIDENT_HOSTNAME=\"rgao-virtual-ma\" -DIDENT_USERHASH=0x7942d6a9L -DIDENT_TIMESTAMP=0x5701bfdeL -DIDENT_UIDHASH=0xd0647d6dL -fnesc-dump=wiring -fnesc-dump='interfaces(!abstract())' -fnesc-dump='referenced(interfacedefs, components)' -fnesc-dumpfile=build/mica2/wiring-check.xml RipsOneHopC.nc -lm 
-In file included from RipsDataStoreC.nc:37,
-                 from RipsOneHopC.nc:34:
-In component `RemoteControlC':
-/home/rgao/betta/tinyos-main/tos/lib/RemoteControl/RemoteControlC.nc:86: component AutoStartC not found
-/home/rgao/betta/tinyos-main/tos/lib/RemoteControl/RemoteControlC.nc:86: component `AutoStartC' is not generic
-In file included from /home/rgao/betta/tinyos-main/tos/lib/RemoteControl/RemoteControlC.nc:87,
-                 from RipsDataStoreC.nc:37,
-                 from RipsOneHopC.nc:34:
-In component `RemoteControlM':
-/home/rgao/betta/tinyos-main/tos/lib/RemoteControl/RemoteControlM.nc:56: interface DfrfSend not found
-/home/rgao/betta/tinyos-main/tos/lib/RemoteControl/RemoteControlM.nc:56: unexpected type arguments
-/home/rgao/betta/tinyos-main/tos/lib/RemoteControl/RemoteControlM.nc: In function `Timer.fired':
-/home/rgao/betta/tinyos-main/tos/lib/RemoteControl/RemoteControlM.nc:173: interface has no command or event named `send'
-/home/rgao/betta/tinyos-main/tos/lib/RemoteControl/RemoteControlM.nc: In function `execute.runTask':
-/home/rgao/betta/tinyos-main/tos/lib/RemoteControl/RemoteControlM.nc:230: interface has no command or event named `send'
-In file included from /home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyC.nc:37,
-                 from /home/rgao/betta/tinyos-main/tos/lib/RemoteControl/RemoteControlC.nc:94,
-                 from RipsDataStoreC.nc:37,
-                 from RipsOneHopC.nc:34:
-In component `GradientPolicyM':
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc: At top level:
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc:49: interface SendMsg not found
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc:50: interface ReceiveMsg not found
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc:51: too few arguments to interface `Timer'
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc: In function `GradientPolicy.setRoot':
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc:67: `TOS_LOCAL_ADDRESS' undeclared (first use in this function)
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc:67: (Each undeclared identifier is reported only once
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc:67: for each function it appears in.)
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc:75: interface has no command or event named `start'
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc:75: `TIMER_REPEAT' undeclared (first use in this function)
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc: At top level:
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc:93: syntax error before `msg'
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc: In function `sendMsg.runTask':
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc:103: `msg' undeclared (first use in this function)
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc:111: interface has no command or event named `send'
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc: At top level:
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc:117: syntax error before `p'
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc:118: `sendDone' is not in interface `SendMsg'
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc:130: syntax error before `ReceiveMsg'
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc:152: warning: type defaults to `int' in declaration of `lastSeqNum'
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc:152: conflicting types for `lastSeqNum'
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc:60: previous declaration of `lastSeqNum'
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc:152: `m' undeclared here (not in a function)
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc:152: warning: data definition has no type or storage class
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc:153: warning: type defaults to `int' in declaration of `nextHopCount'
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc:153: conflicting types for `nextHopCount'
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc:61: previous declaration of `nextHopCount'
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc:153: `m' undeclared here (not in a function)
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc:153: warning: data definition has no type or storage class
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc:155: syntax error before `if'
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc:158: warning: type defaults to `int' in declaration of `hopCountSum'
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc:158: conflicting types for `hopCountSum'
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc:58: previous declaration of `hopCountSum'
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc:158: initializer element is not constant
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc:158: (near initialization for `hopCountSum')
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc:158: warning: data definition has no type or storage class
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc:159: warning: type defaults to `int' in declaration of `msgCount'
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc:159: conflicting types for `msgCount'
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc:59: previous declaration of `msgCount'
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc:159: warning: data definition has no type or storage class
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc:161: syntax error before `else'
-GradientPolicyM: `Timer.fired' not implemented
-GradientPolicyM: `FloodingPolicy.sent' not implemented
-GradientPolicyM: `FloodingPolicy.getLocation' not implemented
-GradientPolicyM: `FloodingPolicy.accept' not implemented
-GradientPolicyM: `FloodingPolicy.received' not implemented
-GradientPolicyM: `FloodingPolicy.age' not implemented
-GradientPolicyM: `IntCommand.execute' not implemented
-GradientPolicyM: `GradientPolicy.setRootAs' not implemented
-GradientPolicyM: `GradientPolicy.setHopCount' not implemented
-GradientPolicyM: `GradientPolicyDownloadConfigurationCommands.execute' not implemented
-In component `GradientPolicyC':
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyC.nc:37: component TimerC not found
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyC.nc:37: component GenericComm not found
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyC.nc:37: component Main not found
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyC.nc:39: cannot find `StdControl'
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyC.nc:40: cannot find `StdControl'
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyC.nc:45: cannot find `SendMsg'
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyC.nc:46: cannot find `ReceiveMsg'
-/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyC.nc:47: cannot find `Timer'
-In component `RemoteControlC':
-/home/rgao/betta/tinyos-main/tos/lib/RemoteControl/RemoteControlC.nc:98: component DfrfClientC not found
-/home/rgao/betta/tinyos-main/tos/lib/RemoteControl/RemoteControlC.nc:98: component `DfrfClientC' is not generic
-/home/rgao/betta/tinyos-main/tos/lib/RemoteControl/RemoteControlC.nc:100: cannot find `StdControl'
-/home/rgao/betta/tinyos-main/tos/lib/RemoteControl/RemoteControlC.nc:134: cannot find `StdControl'
-/home/rgao/betta/tinyos-main/tos/lib/RemoteControl/RemoteControlC.nc:135: no match
-/home/rgao/betta/tinyos-main/tos/lib/RemoteControl/RemoteControlC.nc:136: cannot find `DfrfPolicy'
+ncc -o build/mica2/main.exe  -Os -I%T/lib/BigMsg -I./RadioInclude -I%T/lib/RemoteControl -I%T/lib/misc -I%T/lib/dfrf -I%T/lib/OrderCorrectADC -I%T/lib/FloodRouting -fnesc-separator=__ -Wall -Wshadow -Wnesc-all -target=mica2 -fnesc-cfile=build/mica2/app.c -board=micasb -DDEFINED_TOS_AM_GROUP=0x22 --param max-inline-insns-single=100000 -DIDENT_APPNAME=\"RipsOneHopC\" -DIDENT_USERNAME=\"rgao\" -DIDENT_HOSTNAME=\"rgao-virtual-ma\" -DIDENT_USERHASH=0x7942d6a9L -DIDENT_TIMESTAMP=0x5701cbc5L -DIDENT_UIDHASH=0x45435135L -fnesc-dump=wiring -fnesc-dump='interfaces(!abstract())' -fnesc-dump='referenced(interfacedefs, components)' -fnesc-dumpfile=build/mica2/wiring-check.xml RipsOneHopC.nc -lm 
 In file included from RipsPhaseOffsetC.nc:39,
                  from RipsOneHopC.nc:34:
 In component `RipsPhaseOffsetM':
-RipsPhaseOffsetM.nc:41: too few arguments to interface `Timer'
-RipsPhaseOffsetM.nc:110: conflicting types for `Timer.fired'
-/home/rgao/betta/tinyos-main/tos/lib/timer/Timer.nc(RipsPhaseOffsetM):83: previous declaration of `Timer.fired'
-RipsPhaseOffsetM.nc: In function `masterCollEnded.runTask':
-RipsPhaseOffsetM.nc:160: interface has no command or event named `start'
-RipsPhaseOffsetM.nc:160: `TIMER_ONE_SHOT' undeclared (first use in this function)
-RipsPhaseOffsetM.nc:164: interface has no command or event named `start'
+RipsPhaseOffsetM.nc:288: conflicting types for `AMSend.sendDone'
+/home/rgao/betta/tinyos-main/tos/interfaces/AMSend.nc:110: previous declaration of `AMSend.sendDone'
+RipsPhaseOffsetM.nc:372: conflicting types for `LogQuerySend.sendDone'
+/home/rgao/betta/tinyos-main/tos/interfaces/AMSend.nc:110: previous declaration of `LogQuerySend.sendDone'
+RipsPhaseOffsetM.nc:380: conflicting types for `LogQueryRcv.receive'
+/home/rgao/betta/tinyos-main/tos/interfaces/Receive.nc:78: previous declaration of `LogQueryRcv.receive'
+RipsPhaseOffsetM.nc: In function `LogQueryRcv.receive':
+RipsPhaseOffsetM.nc:382: interface has no command or event named `redToggle'
+RipsPhaseOffsetM.nc: In function `restartTimer.runTask':
+RipsPhaseOffsetM.nc:401: interface has no command or event named `start'
+RipsPhaseOffsetM.nc:401: `TIMER_ONE_SHOT' undeclared (first use in this function)
+RipsPhaseOffsetM.nc:401: (Each undeclared identifier is reported only once
+RipsPhaseOffsetM.nc:401: for each function it appears in.)
 RipsPhaseOffsetM.nc: At top level:
-RipsPhaseOffsetM.nc:246: syntax error before `tuneDataMsg'
-RipsPhaseOffsetM.nc: In function `slaveFindVee.runTask':
-RipsPhaseOffsetM.nc:253: interface has no command or event named `greenToggle'
-RipsPhaseOffsetM.nc:264: `tuneDataMsg' undeclared (first use in this function)
-RipsPhaseOffsetM.nc:282: interface has no command or event named `send'
-RipsPhaseOffsetM.nc: At top level:
-RipsPhaseOffsetM.nc:287: syntax error before `p'
-RipsPhaseOffsetM.nc:288: `sendDone' is not in interface `SendMsg'
-RipsPhaseOffsetM.nc:364: syntax error before `msg'
-RipsPhaseOffsetM.nc: In function `assistLogGoRequest.runTask':
-RipsPhaseOffsetM.nc:367: `msg' undeclared (first use in this function)
-RipsPhaseOffsetM.nc:368: interface has no command or event named `send'
-RipsPhaseOffsetM.nc:369: interface has no command or event named `yellowToggle'
-RipsPhaseOffsetM.nc: At top level:
-RipsPhaseOffsetM.nc:372: syntax error before `p'
-RipsPhaseOffsetM.nc:372: `sendDone' is not in interface `LogQuerySend'
-RipsPhaseOffsetM.nc: In function `LogQuerySend.sendDone':
-RipsPhaseOffsetM.nc:373: `p' undeclared (first use in this function)
-RipsPhaseOffsetM.nc:373: `msg' undeclared (first use in this function)
-RipsPhaseOffsetM.nc:375: interface has no command or event named `greenToggle'
-RipsPhaseOffsetM.nc: At top level:
-RipsPhaseOffsetM.nc:380: syntax error before `LogQueryRcv'
+RipsPhaseOffsetM.nc:405: syntax error before `Receive'
 RipsPhaseOffsetM: `RipsDataCollection.collectionEnded' not implemented
 RipsPhaseOffsetM: `Init.init' not implemented
+RipsPhaseOffsetM: `Receive.receive' not implemented
+In file included from RipsPhaseOffsetC.nc:39,
+                 from RipsOneHopC.nc:34:
+In component `RSSILoggerC':
+./RadioInclude/RSSILoggerC.nc:36: component Main not found
 In file included from ./RadioInclude/RSSILoggerC.nc:36,
                  from RipsPhaseOffsetC.nc:39,
                  from RipsOneHopC.nc:34:
@@ -200,6 +103,7 @@ In C file:
 /home/rgao/betta/tinyos-main/tos/lib/BigMsg/BigMsg.h:30: `DATA_LENGTH' undeclared here (not in a function)
 /home/rgao/betta/tinyos-main/tos/lib/BigMsg/BigMsg.h:30: enumerator value for `BIGMSG_DATA_LENGTH' not integer constant
 In component `SendBigMsgM':
+/home/rgao/betta/tinyos-main/tos/lib/BigMsg/SendBigMsgM.nc:38: interface SendMsg not found
 /home/rgao/betta/tinyos-main/tos/lib/BigMsg/SendBigMsgM.nc:51: syntax error before `msg'
 /home/rgao/betta/tinyos-main/tos/lib/BigMsg/SendBigMsgM.nc:61: `init' is not in interface `StdControl'
 /home/rgao/betta/tinyos-main/tos/lib/BigMsg/SendBigMsgM.nc: In function `StdControl.start':
@@ -221,6 +125,7 @@ In component `SendBigMsgM':
 /home/rgao/betta/tinyos-main/tos/lib/BigMsg/SendBigMsgM.nc:199: `msg' undeclared (first use in this function)
 In component `SendBigMsgC':
 /home/rgao/betta/tinyos-main/tos/lib/BigMsg/SendBigMsgC.nc: At top level:
+/home/rgao/betta/tinyos-main/tos/lib/BigMsg/SendBigMsgC.nc:36: component GenericComm not found
 /home/rgao/betta/tinyos-main/tos/lib/BigMsg/SendBigMsgC.nc:41: cannot find `SendMsg'
 In component `RSSILoggerC':
 ./RadioInclude/RSSILoggerC.nc:40: cannot find `StdControl'
@@ -228,16 +133,13 @@ In file included from RipsDataCollectionC.nc:38,
                  from RipsPhaseOffsetC.nc:40,
                  from RipsOneHopC.nc:34:
 In component `RipsDataCollectionM':
-RipsDataCollectionM.nc:227: syntax error before `msg'
 RipsDataCollectionM.nc: In function `reportError.runTask':
-RipsDataCollectionM.nc:230: `msg' undeclared (first use in this function)
-RipsDataCollectionM.nc:230: subscripted value is neither array nor pointer
-RipsDataCollectionM.nc:231: subscripted value is neither array nor pointer
-RipsDataCollectionM.nc:232: subscripted value is neither array nor pointer
-RipsDataCollectionM.nc:233: interface has no command or event named `send'
+RipsDataCollectionM.nc:233: warning: passing argument 2 of `SendDBGMsg.send' makes pointer from integer without a cast
+RipsDataCollectionM.nc:233: warning: passing argument 3 of `SendDBGMsg.send' makes integer from pointer without a cast
 RipsDataCollectionM.nc: At top level:
 RipsDataCollectionM.nc:237: syntax error before `p'
-RipsDataCollectionM.nc:238: `sendDone' is not in interface `SendDBGMsg'
+RipsDataCollectionM.nc:238: conflicting types for `SendDBGMsg.sendDone'
+/home/rgao/betta/tinyos-main/tos/interfaces/AMSend.nc:110: previous declaration of `SendDBGMsg.sendDone'
 RipsDataCollectionM.nc:400: `init' is not in interface `StdControl'
 In file included from RipsDataCollectionC.nc:38,
                  from RipsPhaseOffsetC.nc:40,
@@ -256,6 +158,7 @@ In component `RSSIEngineM':
 ./RadioInclude/RSSIEngineM.nc:46: interface SysTime not found
 ./RadioInclude/RSSIEngineM.nc:47: interface SysAlarm not found
 ./RadioInclude/RSSIEngineM.nc:48: interface TimeStamping not found
+./RadioInclude/RSSIEngineM.nc:49: interface ReceiveMsg not found
 ./RadioInclude/RSSIEngineM.nc:51: syntax error before `('
 ./RadioInclude/RSSIEngineM.nc:61: syntax error before `syncMsg'
 ./RadioInclude/RSSIEngineM.nc:89:1: warning: "CHECK" redefined
@@ -323,18 +226,21 @@ In component `RSSIEngineC':
 ./RadioInclude/RSSIEngineC.nc:49: cannot find `ReceiveMsg'
 ./RadioInclude/RSSIEngineC.nc:50: cannot find `SendMsg'
 In component `RipsDataCollectionC':
-RipsDataCollectionC.nc:47: cannot find `SendMsg'
+RipsDataCollectionC.nc:47: cannot find `AMSend'
 In component `RipsPhaseOffsetC':
+RipsPhaseOffsetC.nc:40: component TimerC not found
 RipsPhaseOffsetC.nc:43: no match
 RipsPhaseOffsetC.nc:49: cannot find `Timer'
-RipsPhaseOffsetC.nc:50: cannot find `ReceiveMsg'
-RipsPhaseOffsetC.nc:51: cannot find `SendMsg'
-RipsPhaseOffsetC.nc:53: cannot find `ReceiveMsg'
-RipsPhaseOffsetC.nc:54: cannot find `SendMsg'
+RipsPhaseOffsetC.nc:50: cannot find `Receive'
+RipsPhaseOffsetC.nc:51: cannot find `AMSend'
+RipsPhaseOffsetC.nc:53: cannot find `Receive'
+RipsPhaseOffsetC.nc:54: cannot find `AMSend'
 In file included from /home/rgao/betta/tinyos-main/tos/lib/FloodRouting/FloodRoutingC.nc:43,
                  from RipsOneHopC.nc:34:
 In component `FloodRoutingM':
 /home/rgao/betta/tinyos-main/tos/lib/FloodRouting/FloodRoutingM.nc:55: too few arguments to interface `Timer'
+/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/FloodRoutingM.nc:69: warning: tag block shadows enclosing struct/union/enum
+/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/FloodRoutingM.nc:98: warning: tag descriptor shadows enclosing struct/union/enum
 /home/rgao/betta/tinyos-main/tos/lib/FloodRouting/FloodRoutingM.nc:163: syntax error before `rxMsgData'
 /home/rgao/betta/tinyos-main/tos/lib/FloodRouting/FloodRoutingM.nc:164: syntax error before `rxMsg'
 /home/rgao/betta/tinyos-main/tos/lib/FloodRouting/FloodRoutingM.nc: In function `copyData':
@@ -383,4 +289,5 @@ In component `FloodRoutingC':
 In component `RipsOneHopC':
 RipsOneHopC.nc:40: cannot find `Init'
 RipsOneHopC.nc:41: no match
+RipsOneHopC.nc:54: no match
 make: *** [exe0] Error 1

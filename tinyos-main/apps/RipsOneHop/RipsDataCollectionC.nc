@@ -44,5 +44,5 @@ implementation
 	RipsDataCollectionM.RSSIEngine -> RSSIEngineC;
 	RipsDataCollectionM.Leds -> LedsC;
 
-	RipsDataCollectionM.SendDBGMsg -> GenericComm.SendMsg [177];
+	RipsDataCollectionM.SendDBGMsg -> GenericComm.AMSend [177];
 }
