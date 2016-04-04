@@ -32,13 +32,13 @@ module RipsOneHopM
 {
         provides 
         {
-	    interface StdControl;
+	    interface Init;
             interface DataCommand as StartMeasurementCommand;
         }
 
         uses
         {
-            interface StdControl as SubControl;
+            interface Init as SubControl;
             interface Leds;
 /*rgao: updated timec to TimerMilliC*/
 /*          interface Timer;     */
@@ -162,28 +162,36 @@ implementation
         }
     }
 
-    command error_t StdControl.init()
+    command error_t Init.init()
     {
         routingBuffer = call RipsDataStore.getRoutingBuffer();
-        call Leds.init();
+        call Leds.led0On();
         call SubControl.init();
+
+        call FloodRouting.init(sizeof(struct RoutingPacket), ROUTING_UNIQUE_SIZE, routingBuffer, call RipsDataStore.getRoutingBufferSize());
+        state = STATE_READY;
         
         return SUCCESS;
     }
 
-    command error_t StdControl.stop()
-    {
-        call SubControl.stop();
-        state = STATE_STOPPED;
-        return SUCCESS;
-    }
+/**
+*    command error_t Init.stop()
+*    {
+*        call SubControl.stop();
+*        state = STATE_STOPPED;
+*        return SUCCESS;
+*    }
+*/
 
-    command error_t StdControl.start()
-    {
-        call SubControl.start();
-        call FloodRouting.init(sizeof(struct RoutingPacket), ROUTING_UNIQUE_SIZE, routingBuffer, call RipsDataStore.getRoutingBufferSize());
-        state = STATE_READY;
+/**
+*    command error_t StdControl.start()
+*    {
+*        call SubControl.start();
+*        call FloodRouting.init(sizeof(struct RoutingPacket), *ROUTING_UNIQUE_SIZE, routingBuffer, call RipsDataStore.getRoutingBufferSize());
+*        state = STATE_READY;
+*
+*        return SUCCESS;
+*    }
+*/
 
-        return SUCCESS;
-    }
 }

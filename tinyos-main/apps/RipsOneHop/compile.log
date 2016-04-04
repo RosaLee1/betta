@@ -1,16 +1,9 @@
 mkdir -p build/mica2
     compiling RipsOneHopC to a mica2 binary
-ncc -o build/mica2/main.exe  -Os -I%T/lib/BigMsg -I./RadioInclude -I%T/lib/RemoteControl -I%T/lib/OrderCorrectADC -I%T/lib/FloodRouting -fnesc-separator=__ -Wall -Wshadow -Wnesc-all -target=mica2 -fnesc-cfile=build/mica2/app.c -board=micasb -DDEFINED_TOS_AM_GROUP=0x22 --param max-inline-insns-single=100000 -DIDENT_APPNAME=\"RipsOneHopC\" -DIDENT_USERNAME=\"rgao\" -DIDENT_HOSTNAME=\"rgao-virtual-ma\" -DIDENT_USERHASH=0x7942d6a9L -DIDENT_TIMESTAMP=0x5701b5e4L -DIDENT_UIDHASH=0x76be088bL -fnesc-dump=wiring -fnesc-dump='interfaces(!abstract())' -fnesc-dump='referenced(interfacedefs, components)' -fnesc-dumpfile=build/mica2/wiring-check.xml RipsOneHopC.nc -lm 
-In file included from RipsOneHopC.nc:34:
-In component `RipsOneHopM':
-RipsOneHopM.nc:166: `init' is not in interface `StdControl'
-RipsOneHopM.nc: In function `StdControl.init':
-RipsOneHopM.nc:168: interface has no command or event named `init'
-RipsOneHopM.nc:169: interface has no command or event named `init'
+ncc -o build/mica2/main.exe  -Os -I%T/lib/BigMsg -I./RadioInclude -I%T/lib/RemoteControl -I%T/lib/OrderCorrectADC -I%T/lib/FloodRouting -fnesc-separator=__ -Wall -Wshadow -Wnesc-all -target=mica2 -fnesc-cfile=build/mica2/app.c -board=micasb -DDEFINED_TOS_AM_GROUP=0x22 --param max-inline-insns-single=100000 -DIDENT_APPNAME=\"RipsOneHopC\" -DIDENT_USERNAME=\"rgao\" -DIDENT_HOSTNAME=\"rgao-virtual-ma\" -DIDENT_USERHASH=0x7942d6a9L -DIDENT_TIMESTAMP=0x5701bfdeL -DIDENT_UIDHASH=0xd0647d6dL -fnesc-dump=wiring -fnesc-dump='interfaces(!abstract())' -fnesc-dump='referenced(interfacedefs, components)' -fnesc-dumpfile=build/mica2/wiring-check.xml RipsOneHopC.nc -lm 
 In file included from RipsDataStoreC.nc:37,
                  from RipsOneHopC.nc:34:
 In component `RemoteControlC':
-/home/rgao/betta/tinyos-main/tos/lib/RemoteControl/RemoteControlC.nc: At top level:
 /home/rgao/betta/tinyos-main/tos/lib/RemoteControl/RemoteControlC.nc:86: component AutoStartC not found
 /home/rgao/betta/tinyos-main/tos/lib/RemoteControl/RemoteControlC.nc:86: component `AutoStartC' is not generic
 In file included from /home/rgao/betta/tinyos-main/tos/lib/RemoteControl/RemoteControlC.nc:87,
@@ -129,8 +122,7 @@ RipsPhaseOffsetM.nc:375: interface has no command or event named `greenToggle'
 RipsPhaseOffsetM.nc: At top level:
 RipsPhaseOffsetM.nc:380: syntax error before `LogQueryRcv'
 RipsPhaseOffsetM: `RipsDataCollection.collectionEnded' not implemented
-RipsPhaseOffsetM: `StdControl.start' not implemented
-RipsPhaseOffsetM: `StdControl.stop' not implemented
+RipsPhaseOffsetM: `Init.init' not implemented
 In file included from ./RadioInclude/RSSILoggerC.nc:36,
                  from RipsPhaseOffsetC.nc:39,
                  from RipsOneHopC.nc:34:
@@ -333,6 +325,7 @@ In component `RSSIEngineC':
 In component `RipsDataCollectionC':
 RipsDataCollectionC.nc:47: cannot find `SendMsg'
 In component `RipsPhaseOffsetC':
+RipsPhaseOffsetC.nc:43: no match
 RipsPhaseOffsetC.nc:49: cannot find `Timer'
 RipsPhaseOffsetC.nc:50: cannot find `ReceiveMsg'
 RipsPhaseOffsetC.nc:51: cannot find `SendMsg'
@@ -388,5 +381,6 @@ In component `FloodRoutingC':
 /home/rgao/betta/tinyos-main/tos/lib/FloodRouting/FloodRoutingC.nc:54: no match
 /home/rgao/betta/tinyos-main/tos/lib/FloodRouting/FloodRoutingC.nc:56: no match
 In component `RipsOneHopC':
-RipsOneHopC.nc:40: cannot find `StdControl'
+RipsOneHopC.nc:40: cannot find `Init'
+RipsOneHopC.nc:41: no match
 make: *** [exe0] Error 1

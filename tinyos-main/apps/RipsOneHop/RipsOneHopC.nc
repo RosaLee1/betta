@@ -37,7 +37,7 @@ implementation
 /*	components TimerC;    */
 	components new TimerMilliC();
 
-	MainC.StdControl -> RipsOneHopM;
+	MainC.Init -> RipsOneHopM;
 	RipsOneHopM.SubControl -> RipsPhaseOffsetC;
 
 	RipsOneHopM.Leds -> LedsC;

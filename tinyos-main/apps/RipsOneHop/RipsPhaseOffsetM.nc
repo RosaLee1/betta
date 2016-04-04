@@ -30,7 +30,7 @@ module RipsPhaseOffsetM
     provides
     {
         interface RipsPhaseOffset;
-        interface StdControl;
+        interface Init;
     }
     uses
     {
