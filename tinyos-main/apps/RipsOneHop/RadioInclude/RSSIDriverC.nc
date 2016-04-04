@@ -44,7 +44,7 @@ implementation
 	RSSIDriverM.HPLCC1000		-> HPLCC1000M;
 	RSSIDriverM.ADCControl		-> ADCC;
 	RSSIDriverM.CommControl		-> CC1000RadioC;
-	RSSIDriverM.CC1000StdControl	-> CC1000ControlM;
+	RSSIDriverM.CC1000Init	-> CC1000ControlM;
 	RSSIDriverM.CC1000Control	-> CC1000ControlM;
 	RSSIDriverM.Leds		-> LedsC;
 }

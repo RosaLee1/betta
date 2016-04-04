@@ -36,12 +36,12 @@ configuration RSSIEngineC
 
 implementation
 {
-	components Main, GenericComm, SysTimeC, SysTimeStampingC,
+	components MainC, GenericComm, SysTimeC, SysTimeStampingC,
 		RSSIDriverC, RSSIEngineM, LedsC;
 
 	RSSIEngine = RSSIEngineM;
 
-	Main.StdControl			-> GenericComm;
+	MainC.Init			-> GenericComm;
 
 	RSSIEngineM.SysTime		-> SysTimeC;
 	RSSIEngineM.SysAlarm		-> SysTimeC;

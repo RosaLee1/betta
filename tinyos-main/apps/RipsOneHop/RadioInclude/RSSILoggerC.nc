@@ -33,11 +33,11 @@ configuration RSSILoggerC
 
 implementation
 {
-	components Main, RSSILoggerM, RSSIDriverC, SendBigMsgC, LedsC;
+	components MainC, RSSILoggerM, RSSIDriverC, SendBigMsgC, LedsC;
 
 	RSSILogger	= RSSILoggerM;
 
-	Main.StdControl		-> SendBigMsgC;
+	MainC.Init		-> SendBigMsgC;
 
 	RSSILoggerM.RSSIDriver	-> RSSIDriverC;
 	RSSILoggerM.SendBigMsg	-> SendBigMsgC;

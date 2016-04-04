@@ -41,7 +41,7 @@ module RipsPhaseOffsetM
         interface Timer<TMilli>;
         interface Receive;
         interface AMSend;
-        interface StdControl    as SubControl;
+        interface Init    as SubControl;
         interface AMSend       as LogQuerySend; 
         interface Receive    as LogQueryRcv;
     }
@@ -284,9 +284,9 @@ implementation
         state = STATE_READY;
     };
 
-    event error_t AMSend.sendDone(message_t* p, error_t success)
+    event void AMSend.sendDone(message_t* p, error_t success)
     {
-        return SUCCESS;
+        //return SUCCESS;
     }
 
     norace uint8_t collectionType;
@@ -369,17 +369,18 @@ implementation
             call Leds.led1Toggle();
     }
 
-    event error_t LogQuerySend.sendDone(message_t* p, error_t success){
+/*rgao: changed the returned type from error_t to void, and commented out the returns*/
+    event void LogQuerySend.sendDone(message_t* p, error_t success){
         if (p != &msg)
-            return SUCCESS;
+            //return SUCCESS;
         call Leds.led0Toggle();
 
-        return SUCCESS;
+        //return SUCCESS;
     }
 
-    event message_t* LogQueryRcv.receive(message_t* msgp){
+    event message_t* LogQueryRcv.receive(message_t* msgp, void* payload, uint8_t len){
         uint16_t nodeID = ((struct LogMsg *)(msgp->data))->nodeID;
-        call Leds.redToggle();
+        call Leds.led2Toggle();
         if (state >= STATE_DATA_SENDING  && nodeID == TOS_NODE_ID){
             state = STATE_DATA_SENDING-1;
             call RSSILogger.report();
@@ -398,11 +399,11 @@ implementation
 
     /**************             MASTER & SLAVE          ******************/
     task void restartTimer(){
-        if(!call Timer.start(TIMER_ONE_SHOT, 50))
+        call Timer.startOneShot(50); 
             signal RipsPhaseOffset.measurementEnded(FAIL);
     }
     
-    event message_tPtr Receive.receive(message_tPtr pmsg)
+    event message_t* Receive.receive(message_t* pmsg, void* payload, uint8_t len)
     {
         struct TuneDataMsg *tuneData = (struct TuneDataMsg*)(pmsg->data);
         //remove the last logger check, if you want to store more vees in the buffer and take e.g. median as the tuning value
@@ -443,28 +444,36 @@ implementation
             post slaveCollEnded();
     }
 
-    command error_t StdControl.init()
+    command error_t Init.init()
     {
         call SubControl.init();
         measurementSetup = call RipsDataStore.getMeasurementSetup();
-        return SUCCESS;
-    }
 
-    command error_t StdControl.start()
-    {
-        call SubControl.start();
+	call SubControl.init();
         state = STATE_READY;
-        
         return SUCCESS;
     }
 
-    command error_t StdControl.stop()
-    {
-        call SubControl.stop();
-        call RSSILogger.reset();
-        state = STATE_STOPPED;
+/** 
+*   command error_t StdControl.start()
+*    {
+*        call SubControl.start();
+*        state = STATE_READY;
+*        
+*        return SUCCESS;
+*    }
+*/
 
-        return SUCCESS;
-    }
+/**
+*    command error_t StdControl.stop()
+*    {
+*        call SubControl.stop();
+*        call RSSILogger.reset();
+*        state = STATE_STOPPED;
+*
+*        return SUCCESS;
+*    }
+*/
+
 }
 

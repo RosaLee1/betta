@@ -34,8 +34,8 @@ module RSSIDriverM
 	{
 		interface HPLCC1000;
 		interface ADCControl;
-		interface StdControl as CommControl;
-		interface StdControl as CC1000StdControl;
+		interface Init as CommControl;
+		interface Init as CC1000Init;
 		interface CC1000Control;
 		interface Leds;
 	}
@@ -176,7 +176,7 @@ implementation
 		error_t ret;
 
 		ret = call CommControl.stop();
-		ret &= call CC1000StdControl.init();
+		ret &= call CC1000Init.init();
 		ret &= call CommControl.start();
 
         ret &= call CC1000Control.SetRFPower(saved_rx_power);

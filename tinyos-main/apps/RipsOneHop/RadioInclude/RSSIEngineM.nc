@@ -58,7 +58,7 @@ implementation
 
     norace uint32_t time;
 
-    norace TOS_Msg syncMsg;
+    norace message_t syncMsg;
 #define tsHeader ((struct TSHeader *)(&syncMsg.data[tail]))
 
     enum
@@ -130,11 +130,11 @@ implementation
         
         CHECK_TASK(post sendSyncMH());
     }
-    event error_t SendMsgMH.sendDone(TOS_MsgPtr p, error_t success)
+    event error_t SendMsgMH.sendDone(message_tPtr p, error_t success)
     {
         return SUCCESS;
     }
-    event TOS_MsgPtr ReceiveMsgMH.receive(TOS_MsgPtr msg)
+    event message_tPtr ReceiveMsgMH.receive(message_tPtr msg)
     {
         int8_t tail = msg->length - SYNC_MH_MSG_HEADER;
         struct TSHeader *msgTSHeader = ((struct TSHeader *)(&msg->data[tail]));
@@ -290,31 +290,31 @@ implementation
             break;
 
         case STATE_TRANSMIT_BLOCK:
-            CHECK( call RSSIDriver.transmit(transmitStrength, transmitTuning) );
+        //    CHECK( call RSSIDriver.transmit(transmitStrength, transmitTuning) );
             time += (uint32_t)RSSIENGINE_LOCK_TIME + (uint32_t)RSSIENGINE_SAMPLE_COUNT*RSSIDRIVER_SAMPLE_TIME + (uint32_t)RSSIENGINE_TAIL_TIME;
-            CHECK( call SysAlarm.set(SYSALARM_ABSOLUTE, time) );
+          //  CHECK( call SysAlarm.set(SYSALARM_ABSOLUTE, time) );
             radioState = STATE_NONE;
             return;
 
         case STATE_SUSPEND_BLOCK:
-            CHECK( call RSSIDriver.suspend() );
+            //CHECK( call RSSIDriver.suspend() );
             time += (uint32_t)RSSIENGINE_LOCK_TIME + (uint32_t)RSSIENGINE_SAMPLE_COUNT*RSSIDRIVER_SAMPLE_TIME + (uint32_t)RSSIENGINE_TAIL_TIME;
-            CHECK( call SysAlarm.set(SYSALARM_ABSOLUTE, time) );
+            //CHECK( call SysAlarm.set(SYSALARM_ABSOLUTE, time) );
             radioState = STATE_NONE;
             return;
 
         case STATE_RSSI_BLOCK:
-            CHECK( sampleState == STATE_NONE );
+            //CHECK( sampleState == STATE_NONE );
             *(uint16_t*)sampleBuffer = 0;
         case STATE_RECORD_BLOCK:
         case STATE_RIPS_BLOCK:
-            CHECK( sampleState == STATE_NONE );
+            //CHECK( sampleState == STATE_NONE );
             
             sampleState = radioState;
-            CHECK( call RSSIDriver.receive() );
+            //CHECK( call RSSIDriver.receive() );
 
             time += RSSIENGINE_LOCK_TIME;
-            CHECK( call SysAlarm.set(SYSALARM_ABSOLUTE, time) );
+            //CHECK( call SysAlarm.set(SYSALARM_ABSOLUTE, time) );
             radioState += 1;
             return;
         
@@ -323,15 +323,15 @@ implementation
         case STATE_RIPS_BLOCK+1:
             sampleCount = RSSIENGINE_SAMPLE_COUNT;
             time += (uint32_t)RSSIENGINE_SAMPLE_COUNT*RSSIDRIVER_SAMPLE_TIME + (uint32_t)RSSIENGINE_TAIL_TIME;
-            CHECK( call ADC.getContinuousData() );
-            CHECK( call SysAlarm.set(SYSALARM_ABSOLUTE, time) );
+            //CHECK( call ADC.getContinuousData() );
+            //CHECK( call SysAlarm.set(SYSALARM_ABSOLUTE, time) );
             radioState += 1;
             return;
 
         case STATE_RSSI_BLOCK+2:
         case STATE_RECORD_BLOCK+2:
         case STATE_RIPS_BLOCK+2:
-            CHECK( sampleState == STATE_NONE );
+            //CHECK( sampleState == STATE_NONE );
             radioState = STATE_NONE;
             break;
 
@@ -343,7 +343,7 @@ implementation
             return;
 
         default:
-            CHECK(FAIL);
+            //CHECK(FAIL);
         }
 
         signal RSSIEngine.done(SUCCESS);

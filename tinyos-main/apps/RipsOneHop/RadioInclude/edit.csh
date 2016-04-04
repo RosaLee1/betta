@@ -1,7 +1,7 @@
-set files = `grep -l result_t *.nc`
+set files = `grep -l StdControl *.nc`
 
 foreach file ($files) 
-   sed -e 's/result_t/error_t/g' <$file >JUNK
+   sed -e 's/StdControl/Init/g' <$file >JUNK
    mv JUNK $file
 end
 

@@ -24,7 +24,7 @@
  */
 
 #include "RSSILogger.h"
-includes Reset;
+//includes Reset;
 
 module RSSILoggerM
 {
@@ -47,7 +47,7 @@ implementation
 	};
 
 	norace uint16_t error = 0;
-	TOS_Msg msg;
+	message_t msg;
 	
 /**rgao: in tinyos1, SUCCESS was a non-zero error code, while it is zero error *code in tinyos2
 */
@@ -70,48 +70,48 @@ implementation
 
 	inline async command void RSSILogger.record8(uint8_t value)
 	{
-		if( CHECK(bufferIndex <= BUFFER_LENGTH-1) )
+		//if( CHECK(bufferIndex <= BUFFER_LENGTH-1) )
 			buffer[bufferIndex++] = value;
 	}
 
 	inline async command void RSSILogger.record16(uint16_t value)
 	{
-		if( CHECK(bufferIndex <= BUFFER_LENGTH-2) )
-		{
+		//if( CHECK(bufferIndex <= BUFFER_LENGTH-2) )
+		//{
 			buffer[bufferIndex++] = value;
 			buffer[bufferIndex++] = value >> 8;
-		}
+		//}
 	}
 
 	inline async command void RSSILogger.record32(uint32_t value)
 	{
-		if( CHECK(bufferIndex <= BUFFER_LENGTH-4) )
-		{
+		//if( CHECK(bufferIndex <= BUFFER_LENGTH-4) )
+		//{
 			buffer[bufferIndex++] = value;
 			buffer[bufferIndex++] = value >> 8;
 			buffer[bufferIndex++] = value >> 16;
 			buffer[bufferIndex++] = value >> 24;
-		}
+		//}
 	}
 
 	inline async command void *RSSILogger.recordBuffer(uint16_t length)
 	{
 		uint16_t oldIndex = bufferIndex;
 			
-		if( CHECK(oldIndex + length <= BUFFER_LENGTH) )
-		{
+	//	if( CHECK(oldIndex + length <= BUFFER_LENGTH) )
+	//	{
 			bufferIndex += length;
 			return &buffer[oldIndex];
-		}
-		else
-			return 0;
+	//	}
+	//	else
+	//		return 0;
 	}
 
 	task void reportBuffer()
 	{
-		CHECK( call RSSIDriver.restore() );
-		CHECK( call SendBigMsg.send(BASE_STATION,
-				&buffer, &buffer[bufferIndex]) );
+		//CHECK( call RSSIDriver.restore() );
+		//CHECK( call SendBigMsg.send(BASE_STATION,
+		//		&buffer, &buffer[bufferIndex]) );
 	}
 
 	event void SendBigMsg.sendDone(error_t success) 

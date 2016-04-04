@@ -1,58 +1,15 @@
 mkdir -p build/mica2
     compiling RipsOneHopC to a mica2 binary
-ncc -o build/mica2/main.exe  -Os -I%T/lib/BigMsg -I./RadioInclude -I%T/lib/RemoteControl -I%T/lib/misc -I%T/lib/dfrf -I%T/lib/OrderCorrectADC -I%T/lib/FloodRouting -fnesc-separator=__ -Wall -Wshadow -Wnesc-all -target=mica2 -fnesc-cfile=build/mica2/app.c -board=micasb -DDEFINED_TOS_AM_GROUP=0x22 --param max-inline-insns-single=100000 -DIDENT_APPNAME=\"RipsOneHopC\" -DIDENT_USERNAME=\"rgao\" -DIDENT_HOSTNAME=\"rgao-virtual-ma\" -DIDENT_USERHASH=0x7942d6a9L -DIDENT_TIMESTAMP=0x5701cbc5L -DIDENT_UIDHASH=0x45435135L -fnesc-dump=wiring -fnesc-dump='interfaces(!abstract())' -fnesc-dump='referenced(interfacedefs, components)' -fnesc-dumpfile=build/mica2/wiring-check.xml RipsOneHopC.nc -lm 
-In file included from RipsPhaseOffsetC.nc:39,
-                 from RipsOneHopC.nc:34:
-In component `RipsPhaseOffsetM':
-RipsPhaseOffsetM.nc:288: conflicting types for `AMSend.sendDone'
-/home/rgao/betta/tinyos-main/tos/interfaces/AMSend.nc:110: previous declaration of `AMSend.sendDone'
-RipsPhaseOffsetM.nc:372: conflicting types for `LogQuerySend.sendDone'
-/home/rgao/betta/tinyos-main/tos/interfaces/AMSend.nc:110: previous declaration of `LogQuerySend.sendDone'
-RipsPhaseOffsetM.nc:380: conflicting types for `LogQueryRcv.receive'
-/home/rgao/betta/tinyos-main/tos/interfaces/Receive.nc:78: previous declaration of `LogQueryRcv.receive'
-RipsPhaseOffsetM.nc: In function `LogQueryRcv.receive':
-RipsPhaseOffsetM.nc:382: interface has no command or event named `redToggle'
-RipsPhaseOffsetM.nc: In function `restartTimer.runTask':
-RipsPhaseOffsetM.nc:401: interface has no command or event named `start'
-RipsPhaseOffsetM.nc:401: `TIMER_ONE_SHOT' undeclared (first use in this function)
-RipsPhaseOffsetM.nc:401: (Each undeclared identifier is reported only once
-RipsPhaseOffsetM.nc:401: for each function it appears in.)
-RipsPhaseOffsetM.nc: At top level:
-RipsPhaseOffsetM.nc:405: syntax error before `Receive'
-RipsPhaseOffsetM: `RipsDataCollection.collectionEnded' not implemented
-RipsPhaseOffsetM: `Init.init' not implemented
-RipsPhaseOffsetM: `Receive.receive' not implemented
-In file included from RipsPhaseOffsetC.nc:39,
-                 from RipsOneHopC.nc:34:
-In component `RSSILoggerC':
-./RadioInclude/RSSILoggerC.nc:36: component Main not found
-In file included from ./RadioInclude/RSSILoggerC.nc:36,
-                 from RipsPhaseOffsetC.nc:39,
-                 from RipsOneHopC.nc:34:
-In C file:
-./RadioInclude/RSSILoggerM.nc:27: C file Reset not found
-In file included from ./RadioInclude/RSSILoggerC.nc:36,
-                 from RipsPhaseOffsetC.nc:39,
-                 from RipsOneHopC.nc:34:
-In component `RSSILoggerM':
-./RadioInclude/RSSILoggerM.nc:50: syntax error before `msg'
-./RadioInclude/RSSILoggerM.nc: In function `RSSILogger.record8':
-./RadioInclude/RSSILoggerM.nc:73: interface has no command or event named `check'
-./RadioInclude/RSSILoggerM.nc: In function `RSSILogger.record16':
-./RadioInclude/RSSILoggerM.nc:79: interface has no command or event named `check'
-./RadioInclude/RSSILoggerM.nc: In function `RSSILogger.record32':
-./RadioInclude/RSSILoggerM.nc:88: interface has no command or event named `check'
-./RadioInclude/RSSILoggerM.nc: In function `RSSILogger.recordBuffer':
-./RadioInclude/RSSILoggerM.nc:101: interface has no command or event named `check'
-./RadioInclude/RSSILoggerM.nc: In function `reportBuffer.runTask':
-./RadioInclude/RSSILoggerM.nc:112: interface has no command or event named `check'
-./RadioInclude/RSSILoggerM.nc:113: interface has no command or event named `check'
+ncc -o build/mica2/main.exe  -Os -I%T/lib/BigMsg -I./RadioInclude -I%T/lib/RemoteControl -I%T/lib/misc -I%T/lib/dfrf -I%T/lib/OrderCorrectADC -I%T/lib/FloodRouting -fnesc-separator=__ -Wall -Wshadow -Wnesc-all -target=mica2 -fnesc-cfile=build/mica2/app.c -board=micasb -DDEFINED_TOS_AM_GROUP=0x22 --param max-inline-insns-single=100000 -DIDENT_APPNAME=\"RipsOneHopC\" -DIDENT_USERNAME=\"rgao\" -DIDENT_HOSTNAME=\"rgao-virtual-ma\" -DIDENT_USERHASH=0x7942d6a9L -DIDENT_TIMESTAMP=0x5702aaf4L -DIDENT_UIDHASH=0xb3edd9f6L -fnesc-dump=wiring -fnesc-dump='interfaces(!abstract())' -fnesc-dump='referenced(interfacedefs, components)' -fnesc-dumpfile=build/mica2/wiring-check.xml RipsOneHopC.nc -lm
+
+ 
 In file included from ./RadioInclude/RSSILoggerC.nc:36,
                  from RipsPhaseOffsetC.nc:39,
                  from RipsOneHopC.nc:34:
 In component `RSSIDriverC':
-./RadioInclude/RSSIDriverC.nc: At top level:
 ./RadioInclude/RSSIDriverC.nc:33: syntax error before `('
+
+
 In file included from ./RadioInclude/RSSIDriverC.nc:39,
                  from ./RadioInclude/RSSILoggerC.nc:36,
                  from RipsPhaseOffsetC.nc:39,
@@ -71,13 +28,17 @@ In component `RSSIDriverM':
 ./RadioInclude/RSSIDriverM.nc:106: interface has no command or event named `write'
 ./RadioInclude/RSSIDriverM.nc: In function `RSSIDriver.acquire':
 ./RadioInclude/RSSIDriverM.nc:152: interface has no command or event named `GetRFPower'
+./RadioInclude/RSSIDriverM.nc:154: interface has no command or event named `stop'
 ./RadioInclude/RSSIDriverM.nc:155: interface has no command or event named `init'
 ./RadioInclude/RSSIDriverM.nc:156: interface has no command or event named `bindPort'
 ./RadioInclude/RSSIDriverM.nc:157: `TOSH_ACTUAL_CC_RSSI_PORT' undeclared (first use in this function)
+./RadioInclude/RSSIDriverM.nc:157: (Each undeclared identifier is reported only once
+./RadioInclude/RSSIDriverM.nc:157: for each function it appears in.)
 ./RadioInclude/RSSIDriverM.nc:158: interface has no command or event named `setSamplingRate'
 ./RadioInclude/RSSIDriverM.nc:167: interface has no command or event named `yellowOn'
 ./RadioInclude/RSSIDriverM.nc: In function `RSSIDriver.restore':
-./RadioInclude/RSSIDriverM.nc:179: interface has no command or event named `init'
+./RadioInclude/RSSIDriverM.nc:178: interface has no command or event named `stop'
+./RadioInclude/RSSIDriverM.nc:180: interface has no command or event named `start'
 ./RadioInclude/RSSIDriverM.nc:182: interface has no command or event named `SetRFPower'
 ./RadioInclude/RSSIDriverM.nc:186: interface has no command or event named `yellowOff'
 ./RadioInclude/RSSIDriverM.nc: In function `RSSIDriver.transmit':
@@ -128,7 +89,7 @@ In component `SendBigMsgC':
 /home/rgao/betta/tinyos-main/tos/lib/BigMsg/SendBigMsgC.nc:36: component GenericComm not found
 /home/rgao/betta/tinyos-main/tos/lib/BigMsg/SendBigMsgC.nc:41: cannot find `SendMsg'
 In component `RSSILoggerC':
-./RadioInclude/RSSILoggerC.nc:40: cannot find `StdControl'
+./RadioInclude/RSSILoggerC.nc:40: cannot find `Init'
 In file included from RipsDataCollectionC.nc:38,
                  from RipsPhaseOffsetC.nc:40,
                  from RipsOneHopC.nc:34:
@@ -152,6 +113,7 @@ In file included from ./RadioInclude/RSSIEngineC.nc:40,
                  from RipsPhaseOffsetC.nc:40,
                  from RipsOneHopC.nc:34:
 In C file:
+./RadioInclude/RSSIEngineM.nc:33: C file Reset not found
 ./RadioInclude/RSSIEngineM.nc:34: C file SysTime not found
 ./RadioInclude/RSSIEngineM.nc:35: C file SysAlarm not found
 In component `RSSIEngineM':
@@ -160,23 +122,18 @@ In component `RSSIEngineM':
 ./RadioInclude/RSSIEngineM.nc:48: interface TimeStamping not found
 ./RadioInclude/RSSIEngineM.nc:49: interface ReceiveMsg not found
 ./RadioInclude/RSSIEngineM.nc:51: syntax error before `('
-./RadioInclude/RSSIEngineM.nc:61: syntax error before `syncMsg'
 ./RadioInclude/RSSIEngineM.nc:89:1: warning: "CHECK" redefined
 In file included from ./RadioInclude/RSSIEngineM.nc:1:
 <built-in>: warning: this is the location of the previous definition
 ./RadioInclude/RSSIEngineM.nc: In function `sendSyncMH.runTask':
-./RadioInclude/RSSIEngineM.nc:103: `syncMsg' undeclared (first use in this function)
+./RadioInclude/RSSIEngineM.nc:103: nx_struct has no member named `length'
 ./RadioInclude/RSSIEngineM.nc:104: interface has no command or event named `getTime32'
-./RadioInclude/RSSIEngineM.nc:106: subscripted value is neither array nor pointer
-./RadioInclude/RSSIEngineM.nc:107: subscripted value is neither array nor pointer
-./RadioInclude/RSSIEngineM.nc:108: subscripted value is neither array nor pointer
 ./RadioInclude/RSSIEngineM.nc:108: `TOS_LOCAL_ADDRESS' undeclared (first use in this function)
-./RadioInclude/RSSIEngineM.nc:111: subscripted value is neither array nor pointer
 ./RadioInclude/RSSIEngineM.nc:113: interface has no command or event named `send'
 ./RadioInclude/RSSIEngineM.nc:114: interface has no command or event named `addStamp2'
 ./RadioInclude/RSSIEngineM.nc: In function `RSSIEngine.sendSyncMH':
 ./RadioInclude/RSSIEngineM.nc:125: `DATA_LENGTH' undeclared (first use in this function)
-./RadioInclude/RSSIEngineM.nc:127: `syncMsg' undeclared (first use in this function)
+./RadioInclude/RSSIEngineM.nc:128: nx_struct has no member named `length'
 ./RadioInclude/RSSIEngineM.nc: At top level:
 ./RadioInclude/RSSIEngineM.nc:133: syntax error before `p'
 ./RadioInclude/RSSIEngineM.nc:134: `sendDone' is not in interface `SendMsgMH'
@@ -191,6 +148,8 @@ In file included from ./RadioInclude/RSSIEngineM.nc:1:
 ./RadioInclude/RSSIEngineM.nc:142: initializer element is not constant
 ./RadioInclude/RSSIEngineM.nc:142: (near initialization for `numHops')
 ./RadioInclude/RSSIEngineM.nc:144: syntax error before `if'
+./RadioInclude/RSSIEngineM.nc:151: warning: declaration of `syncMsg' shadows global declaration
+./RadioInclude/RSSIEngineM.nc:61: warning: location of shadowed declaration
 ./RadioInclude/RSSIEngineM.nc:151: syntax error before `.'
 ./RadioInclude/RSSIEngineM.nc:151: warning: return-type defaults to `int'
 ./RadioInclude/RSSIEngineM.nc:151: conflicting types for `memcpy'
@@ -219,7 +178,7 @@ RSSIEngineM: `RSSIEngine.resetElapsedTime' not implemented
 RSSIEngineM: `taskStep.runTask' not implemented
 In component `RSSIEngineC':
 ./RadioInclude/RSSIEngineC.nc:52: syntax error before `('
-./RadioInclude/RSSIEngineC.nc:44: cannot find `StdControl'
+./RadioInclude/RSSIEngineC.nc:44: cannot find `Init'
 ./RadioInclude/RSSIEngineC.nc:46: no match
 ./RadioInclude/RSSIEngineC.nc:47: no match
 ./RadioInclude/RSSIEngineC.nc:48: no match
@@ -233,6 +192,7 @@ RipsPhaseOffsetC.nc:43: no match
 RipsPhaseOffsetC.nc:49: cannot find `Timer'
 RipsPhaseOffsetC.nc:50: cannot find `Receive'
 RipsPhaseOffsetC.nc:51: cannot find `AMSend'
+RipsPhaseOffsetC.nc:52: no match
 RipsPhaseOffsetC.nc:53: cannot find `Receive'
 RipsPhaseOffsetC.nc:54: cannot find `AMSend'
 In file included from /home/rgao/betta/tinyos-main/tos/lib/FloodRouting/FloodRoutingC.nc:43,
