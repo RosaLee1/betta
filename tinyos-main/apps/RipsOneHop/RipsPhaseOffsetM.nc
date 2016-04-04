@@ -126,11 +126,11 @@ implementation
             tuningType = TUNE_2_VEE_HOPA;
         }
 
-        if (assistant == TOS_LOCAL_ADDRESS || state < STATE_DATA_SENDING)
+        if (assistant == TOS_NODE_ID || state < STATE_DATA_SENDING)
             return FAIL;
 
         measurementSetup->seqNumber = seqNumber;
-        measurementSetup->masterID = TOS_LOCAL_ADDRESS;
+        measurementSetup->masterID = TOS_NODE_ID;
         measurementSetup->assistantID = assistant;
         
         //slaves can be in STATE_DATA_SENDING and need to reset the logger
@@ -261,7 +261,7 @@ implementation
             return;
         }
 
-        ((struct TuneDataMsg*)(tuneDataMsg.data))->id = TOS_LOCAL_ADDRESS;        
+        ((struct TuneDataMsg*)(tuneDataMsg.data))->id = TOS_NODE_ID;        
         ((struct TuneDataMsg*)(tuneDataMsg.data))->vee1 = vee1;
         ((struct TuneDataMsg*)(tuneDataMsg.data))->sup1 = supportTmp;
         if (state == STATE_VEE2){
@@ -304,7 +304,7 @@ implementation
         signal RipsPhaseOffset.measurementStarted(seqNumber, master, assistant);
         call RSSILogger.reset();
 
-        if (assistant == TOS_LOCAL_ADDRESS)
+        if (assistant == TOS_NODE_ID)
             return 0;
         else{
             if ((type&0xF0) == RAW_DATA)
@@ -364,7 +364,7 @@ implementation
     TOS_Msg msg;
     
     void task assistLogGoRequest(){
-        ((struct LogMsg *)(msg.data))->nodeID = TOS_LOCAL_ADDRESS;
+        ((struct LogMsg *)(msg.data))->nodeID = TOS_NODE_ID;
         if (!call LogQuerySend.send(TOS_BCAST_ADDR, sizeof(struct LogMsg), &msg))
             call Leds.yellowToggle();
     }
@@ -380,7 +380,7 @@ implementation
     event TOS_MsgPtr LogQueryRcv.receive(TOS_MsgPtr msgp){
         uint16_t nodeID = ((struct LogMsg *)(msgp->data))->nodeID;
         call Leds.redToggle();
-        if (state >= STATE_DATA_SENDING  && nodeID == TOS_LOCAL_ADDRESS){
+        if (state >= STATE_DATA_SENDING  && nodeID == TOS_NODE_ID){
             state = STATE_DATA_SENDING-1;
             call RSSILogger.report();
         }
@@ -408,7 +408,7 @@ implementation
         //remove the last logger check, if you want to store more vees in the buffer and take e.g. median as the tuning value
         if ( (state == STATE_TUNING_DATA1 || state == STATE_TUNING_DATA2)
              && (tuneData->sup1>=SUPPORT_LIMIT) && (tuneData->sup2>=SUPPORT_LIMIT)
-             && measurementSetup->masterID == TOS_LOCAL_ADDRESS 
+             && measurementSetup->masterID == TOS_NODE_ID 
              && call RSSILogger.getLength() == 0){
             call RSSILogger.record16(tuneData->vee1);
             call RSSILogger.record16(tuneData->vee2);
@@ -427,19 +427,19 @@ implementation
     {
         if (success == FAIL){
             call RSSILogger.reset();
-            if (measurementSetup->masterID == TOS_LOCAL_ADDRESS)
+            if (measurementSetup->masterID == TOS_NODE_ID)
                 signal RipsPhaseOffset.measurementEnded(FAIL);
             state = STATE_READY;
             return;
         }
 
-        if (measurementSetup->masterID == TOS_LOCAL_ADDRESS){
+        if (measurementSetup->masterID == TOS_NODE_ID){
             if (!post masterCollEnded()){
                 signal RipsPhaseOffset.measurementEnded(FAIL);
                 state = STATE_READY;
             }
         }
-        else if (measurementSetup->assistantID != TOS_LOCAL_ADDRESS)
+        else if (measurementSetup->assistantID != TOS_NODE_ID)
             post slaveCollEnded();
     }
 

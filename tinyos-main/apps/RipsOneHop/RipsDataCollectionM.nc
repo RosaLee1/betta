@@ -91,7 +91,7 @@ implementation
     {
         uint8_t tmpNumHops = 0, tmpHopType = (params->algorithmType&0xF0);
         numRcvs = 0xFF;
-        if (assistant == TOS_LOCAL_ADDRESS || state != STATE_READY)
+        if (assistant == TOS_NODE_ID || state != STATE_READY)
             return FAIL;
         
         switch(collectionType&0x0F)
@@ -153,11 +153,11 @@ implementation
         if (state != STATE_READY)
             return FAIL;
 
-        if (inPacket->masterID != TOS_LOCAL_ADDRESS && inPacket->assistID != TOS_LOCAL_ADDRESS && inPacket->rcvID[0]!=ALL_RCVS_TYPE){
+        if (inPacket->masterID != TOS_NODE_ID && inPacket->assistID != TOS_NODE_ID && inPacket->rcvID[0]!=ALL_RCVS_TYPE){
             //only certain receivers reply, if exact receivers are specified in syncMsg
             uint8_t i = 0, isReceiver = 0;
             for (i=0; i<NUM_RECEIVERS; i++){
-                if (inPacket->rcvID[i] == (uint8_t)TOS_LOCAL_ADDRESS){
+                if (inPacket->rcvID[i] == (uint8_t)TOS_NODE_ID){
                     isReceiver = 1;
                     break;
                 }
@@ -171,7 +171,7 @@ implementation
         memcpy(syncPacket, data, sizeof(struct SyncPacket));
         currentHop = 0;
         
-		if (syncPacket->assistID == TOS_LOCAL_ADDRESS){
+		if (syncPacket->assistID == TOS_NODE_ID){
 		    NEXT_STATE(STATE_RUNNING_SENDER+1);
     	}
         else{
@@ -195,7 +195,7 @@ implementation
                 currentHop = 0;
                 //channel = syncPacket->channelB;
                 channel = - syncPacket->channelA;
-                if (syncPacket->masterID == TOS_LOCAL_ADDRESS)
+                if (syncPacket->masterID == TOS_NODE_ID)
                     tuning = params->initialTuning;
                 return TRUE;
             }
@@ -204,17 +204,17 @@ implementation
         }
         else if ( (syncPacket->hopType&0x0F) == TUNE_2_VEE_HOPA || (syncPacket->hopType&0x0F) == TUNE_2_VEE_HOPB 
                 ||(syncPacket->hopType&0x0F) == TUNE_VEE_HOP){
-            if (syncPacket->masterID == TOS_LOCAL_ADDRESS)
+            if (syncPacket->masterID == TOS_NODE_ID)
                 tuning += params->tuningOffset;
         }
         else if ( (syncPacket->hopType&0x0F) == FREQ_HOP){
             channel += params->channelOffset;
-            if (syncPacket->masterID == TOS_LOCAL_ADDRESS)
+            if (syncPacket->masterID == TOS_NODE_ID)
                 tuning = getTuning(channel);
         }
         else if ( (syncPacket->hopType&0x0F) == EXACT_FREQS){
             channel = channels[currentHop];
-            if (syncPacket->masterID == TOS_LOCAL_ADDRESS)
+            if (syncPacket->masterID == TOS_NODE_ID)
                 tuning = getTuning(channel);
         }
         else 
@@ -227,7 +227,7 @@ implementation
 	TOS_Msg msg;
 	task void reportError()
 	{
-		*(uint16_t*)(&msg.data[0]) = TOS_LOCAL_ADDRESS;
+		*(uint16_t*)(&msg.data[0]) = TOS_NODE_ID;
 		*(uint16_t*)(&msg.data[2]) = line;
 		*(uint16_t*)(&msg.data[4]) = state;
         call SendDBGMsg.send(TOS_BCAST_ADDR, 5, &msg);

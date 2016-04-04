@@ -42,7 +42,7 @@ module RipsOneHopM
             interface Leds;
 /*rgao: updated timec to TimerMilliC*/
 /*          interface Timer;     */
-	    interface Timer<TMilli> as Timer0;
+	    interface Timer<TMilli> as Timer;
             interface RSSILogger;
             interface RipsDataStore;
             interface RipsPhaseOffset;
@@ -76,16 +76,16 @@ implementation
 
         seqNumber  = ((struct StartCommand *)data)->seqNum;
         assistID = ((struct StartCommand *)data)->assistID;
-        if (!call Timer0.start(TIMER_ONE_SHOT, 500)){ //wait until the radio comm caused by remote ctl dies
-            state = STATE_READY;
-        }
+        call Timer.startOneShot(500); //wait until the radio comm caused by remote ctl dies
+        state = STATE_READY;
+        
     } 
 
-    event error_t Timer0.fired(){
+    event void Timer.fired(){
         if (!call RipsPhaseOffset.startRanging(seqNumber, assistID))
             state = STATE_READY;
 
-        return FAIL;
+       // return FAIL;
     }
 
     event void RipsPhaseOffset.measurementStarted(uint8_t seqNum, uint16_t master, uint16_t assistant){
@@ -111,7 +111,7 @@ implementation
         //* 
         struct RoutingPacket packet;
         packet.seqNumber = seqNumber;
-        packet.slaveID = TOS_LOCAL_ADDRESS;
+        packet.slaveID = TOS_NODE_ID;
         
         i=0;
         while ( i < NUM_MEASUREMENTS && 

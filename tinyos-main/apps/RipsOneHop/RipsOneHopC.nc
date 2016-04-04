@@ -44,7 +44,7 @@ implementation
 
 /*rgao: updated timec to TimerMilliC*/
 /*	RipsOneHopM.Timer -> TimerC.Timer[unique("Timer")];   */
-	RipsOneHopM.Timer0 -> TimerMilliC;
+	RipsOneHopM.Timer -> TimerMilliC;
 
     	RipsOneHopM.RSSILogger -> RSSILoggerC;
 	RemoteControlC.DataCommand[0x12]	-> RipsOneHopM.StartMeasurementCommand;

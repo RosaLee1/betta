@@ -1,19 +1,8 @@
 mkdir -p build/mica2
     compiling RipsOneHopC to a mica2 binary
-ncc -o build/mica2/main.exe  -Os -I%T/lib/BigMsg -I./RadioInclude -I%T/lib/RemoteControl -I%T/lib/OrderCorrectADC -I%T/lib/FloodRouting -fnesc-separator=__ -Wall -Wshadow -Wnesc-all -target=mica2 -fnesc-cfile=build/mica2/app.c -board=micasb -DDEFINED_TOS_AM_GROUP=0x22 --param max-inline-insns-single=100000 -DIDENT_APPNAME=\"RipsOneHopC\" -DIDENT_USERNAME=\"rgao\" -DIDENT_HOSTNAME=\"rgao-virtual-ma\" -DIDENT_USERHASH=0x7942d6a9L -DIDENT_TIMESTAMP=0x56fee801L -DIDENT_UIDHASH=0x50836270L -fnesc-dump=wiring -fnesc-dump='interfaces(!abstract())' -fnesc-dump='referenced(interfacedefs, components)' -fnesc-dumpfile=build/mica2/wiring-check.xml RipsOneHopC.nc -lm 
+ncc -o build/mica2/main.exe  -Os -I%T/lib/BigMsg -I./RadioInclude -I%T/lib/RemoteControl -I%T/lib/OrderCorrectADC -I%T/lib/FloodRouting -fnesc-separator=__ -Wall -Wshadow -Wnesc-all -target=mica2 -fnesc-cfile=build/mica2/app.c -board=micasb -DDEFINED_TOS_AM_GROUP=0x22 --param max-inline-insns-single=100000 -DIDENT_APPNAME=\"RipsOneHopC\" -DIDENT_USERNAME=\"rgao\" -DIDENT_HOSTNAME=\"rgao-virtual-ma\" -DIDENT_USERHASH=0x7942d6a9L -DIDENT_TIMESTAMP=0x5701b5e4L -DIDENT_UIDHASH=0x76be088bL -fnesc-dump=wiring -fnesc-dump='interfaces(!abstract())' -fnesc-dump='referenced(interfacedefs, components)' -fnesc-dumpfile=build/mica2/wiring-check.xml RipsOneHopC.nc -lm 
 In file included from RipsOneHopC.nc:34:
 In component `RipsOneHopM':
-RipsOneHopM.nc: In function `StartMeasurementCommand.execute':
-RipsOneHopM.nc:79: interface has no command or event named `start'
-RipsOneHopM.nc:79: `TIMER_ONE_SHOT' undeclared (first use in this function)
-RipsOneHopM.nc:79: (Each undeclared identifier is reported only once
-RipsOneHopM.nc:79: for each function it appears in.)
-RipsOneHopM.nc: At top level:
-RipsOneHopM.nc:84: conflicting types for `Timer0.fired'
-/home/rgao/betta/tinyos-main/tos/lib/timer/Timer.nc(RipsOneHopM):83: previous declaration of `Timer0.fired'
-RipsOneHopM.nc: In function `sendData.runTask':
-RipsOneHopM.nc:114: `TOS_LOCAL_ADDRESS' undeclared (first use in this function)
-RipsOneHopM.nc: At top level:
 RipsOneHopM.nc:166: `init' is not in interface `StdControl'
 RipsOneHopM.nc: In function `StdControl.init':
 RipsOneHopM.nc:168: interface has no command or event named `init'
@@ -45,6 +34,8 @@ In component `GradientPolicyM':
 /home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc:51: too few arguments to interface `Timer'
 /home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc: In function `GradientPolicy.setRoot':
 /home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc:67: `TOS_LOCAL_ADDRESS' undeclared (first use in this function)
+/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc:67: (Each undeclared identifier is reported only once
+/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc:67: for each function it appears in.)
 /home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc:75: interface has no command or event named `start'
 /home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc:75: `TIMER_REPEAT' undeclared (first use in this function)
 /home/rgao/betta/tinyos-main/tos/lib/FloodRouting/GradientPolicyM.nc: At top level:
@@ -110,8 +101,6 @@ In component `RipsPhaseOffsetM':
 RipsPhaseOffsetM.nc:41: too few arguments to interface `Timer'
 RipsPhaseOffsetM.nc:110: conflicting types for `Timer.fired'
 /home/rgao/betta/tinyos-main/tos/lib/timer/Timer.nc(RipsPhaseOffsetM):83: previous declaration of `Timer.fired'
-RipsPhaseOffsetM.nc: In function `RipsPhaseOffset.startRanging':
-RipsPhaseOffsetM.nc:129: `TOS_LOCAL_ADDRESS' undeclared (first use in this function)
 RipsPhaseOffsetM.nc: In function `masterCollEnded.runTask':
 RipsPhaseOffsetM.nc:160: interface has no command or event named `start'
 RipsPhaseOffsetM.nc:160: `TIMER_ONE_SHOT' undeclared (first use in this function)
@@ -121,18 +110,13 @@ RipsPhaseOffsetM.nc:246: syntax error before `tuneDataMsg'
 RipsPhaseOffsetM.nc: In function `slaveFindVee.runTask':
 RipsPhaseOffsetM.nc:253: interface has no command or event named `greenToggle'
 RipsPhaseOffsetM.nc:264: `tuneDataMsg' undeclared (first use in this function)
-RipsPhaseOffsetM.nc:264: `TOS_LOCAL_ADDRESS' undeclared (first use in this function)
 RipsPhaseOffsetM.nc:282: interface has no command or event named `send'
 RipsPhaseOffsetM.nc: At top level:
 RipsPhaseOffsetM.nc:287: syntax error before `p'
 RipsPhaseOffsetM.nc:288: `sendDone' is not in interface `SendMsg'
-RipsPhaseOffsetM.nc: In function `RipsDataCollection.collectionStarted':
-RipsPhaseOffsetM.nc:307: `TOS_LOCAL_ADDRESS' undeclared (first use in this function)
-RipsPhaseOffsetM.nc: At top level:
 RipsPhaseOffsetM.nc:364: syntax error before `msg'
 RipsPhaseOffsetM.nc: In function `assistLogGoRequest.runTask':
 RipsPhaseOffsetM.nc:367: `msg' undeclared (first use in this function)
-RipsPhaseOffsetM.nc:367: `TOS_LOCAL_ADDRESS' undeclared (first use in this function)
 RipsPhaseOffsetM.nc:368: interface has no command or event named `send'
 RipsPhaseOffsetM.nc:369: interface has no command or event named `yellowToggle'
 RipsPhaseOffsetM.nc: At top level:
@@ -252,18 +236,10 @@ In file included from RipsDataCollectionC.nc:38,
                  from RipsPhaseOffsetC.nc:40,
                  from RipsOneHopC.nc:34:
 In component `RipsDataCollectionM':
-RipsDataCollectionM.nc: In function `RipsDataCollection.startCollection':
-RipsDataCollectionM.nc:94: `TOS_LOCAL_ADDRESS' undeclared (first use in this function)
-RipsDataCollectionM.nc: In function `RSSIEngine.receiveSync':
-RipsDataCollectionM.nc:156: `TOS_LOCAL_ADDRESS' undeclared (first use in this function)
-RipsDataCollectionM.nc: In function `updateParams':
-RipsDataCollectionM.nc:198: `TOS_LOCAL_ADDRESS' undeclared (first use in this function)
-RipsDataCollectionM.nc: At top level:
 RipsDataCollectionM.nc:227: syntax error before `msg'
 RipsDataCollectionM.nc: In function `reportError.runTask':
 RipsDataCollectionM.nc:230: `msg' undeclared (first use in this function)
 RipsDataCollectionM.nc:230: subscripted value is neither array nor pointer
-RipsDataCollectionM.nc:230: `TOS_LOCAL_ADDRESS' undeclared (first use in this function)
 RipsDataCollectionM.nc:231: subscripted value is neither array nor pointer
 RipsDataCollectionM.nc:232: subscripted value is neither array nor pointer
 RipsDataCollectionM.nc:233: interface has no command or event named `send'
