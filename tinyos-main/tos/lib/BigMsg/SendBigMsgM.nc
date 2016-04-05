@@ -30,12 +30,14 @@ module SendBigMsgM
 	provides
 	{
 		interface SendBigMsg;
-		interface StdControl;
+		interface Init;
 	}
 
 	uses
 	{
-		interface SendMsg;
+		interface AMSend;
+                interface AMPacket;
+		interface Packet;
 	}
 }
 
@@ -48,32 +50,39 @@ implementation
 	uint8_t segmentCount;		// the total number of segments, 0 if stopped
 	uint8_t segment;		// the current segment in the range [0, segmentCount]
 	int8_t* head;			// the next byte that goes into the next message
-	TOS_Msg msg;			// we store the address, length and seqNum here
+	message_t msg;			// we store the address, length and seqNum here
 	uint8_t retryCount;		// the number of remaining retries for failed acks
 	uint32_t totalLength;		// the total length of the message
 
-#define	msgAddress	msg.addr
-#define msgLength	msg.length
+am_addr_t msgAddress;
+uint8_t msgLength;
 #define msgSource	(((BigMsg*)msg.data)->source)
 #define msgSeqNum	(((BigMsg*)msg.data)->seqNum)
 
-	command error_t StdControl.init()
-	{
-		segmentCount = 0;
+/**
+*	command error_t Init.init()
+*	{
+*		segmentCount = 0;
+*
+*		return SUCCESS;
+*	}
+*/
+	command error_t Init.init() { 
+	    
 
-		return SUCCESS;
-	}
+	    segmentCount = 0;
+	    msgSource = TOS_NODE_ID;
 
-	command error_t StdControl.start() { 
-		msgSource = TOS_LOCAL_ADDRESS;
+	    msgAddress = call	AMPacket.destination(&msg);
+	    msgLength = call Packet.payloadLength(&msg);
 	    return SUCCESS; 
 	}
-	command error_t StdControl.stop() { return SUCCESS; }
+	//command error_t Init.stop() { return SUCCESS; }
 
 	// retry sending the message untill the radio stack accepts it for sending
 	task void sendMsg()
 	{
-		if( call SendMsg.send(msgAddress, msgLength, &msg) != SUCCESS )
+		if( call AMSend.send(msgAddress, &msg, msgLength) != SUCCESS )
 			post sendMsg();
 	}
 
@@ -117,15 +126,15 @@ implementation
 		post sendMsg();
 	}
 
-	event error_t SendMsg.sendDone(TOS_MsgPtr p, error_t success)
+	event void AMSend.sendDone(message_t* p, error_t success)
 	{
 		// if this is our message
 		if( p == &msg )
 		{
 #if defined(PLATFORM_MICA2) || defined(PLATFORM_XSM)
-			msg.ack = retryCount == 1;
+			retryCount == 1;
 #endif
-			if( success == SUCCESS && msg.ack )
+			if( success == SUCCESS )
 			{
         		// increase the sequence number and make sure the highest bit is never 1
                 ++msgSeqNum;
@@ -155,7 +164,7 @@ implementation
 			}
 		}
 
-		return SUCCESS;
+		//return SUCCESS;
 	}
 
 	void addSegment(void *start, void *end)

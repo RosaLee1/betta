@@ -27,7 +27,7 @@ configuration SendBigMsgC
 	provides
 	{
 		interface SendBigMsg;
-		interface StdControl;
+		interface Init;
 	}
 }
 
@@ -36,7 +36,7 @@ implementation
 	components SendBigMsgM, GenericComm;
 
 	SendBigMsg = SendBigMsgM.SendBigMsg;
-	StdControl = SendBigMsgM.StdControl;
+	Init = SendBigMsgM.Init;
 
-	SendBigMsgM.SendMsg -> GenericComm.SendMsg[0x6F];
+	SendBigMsgM.AMSend -> GenericComm.AMSend[0x6F];
 }

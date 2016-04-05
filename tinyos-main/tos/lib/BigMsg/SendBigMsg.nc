@@ -24,7 +24,7 @@
 
 /**
  * This interface allows to send big messages (longer than what
- * fits in a single TOS_Msg). The data to be sent can be a continuous
+ * fits in a single message_t). The data to be sent can be a continuous
  * buffer, or the concatenation of more buffers (gather).
  */
 interface SendBigMsg

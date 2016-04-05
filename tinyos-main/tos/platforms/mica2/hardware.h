@@ -53,6 +53,10 @@
 #define MHZ 8
 #endif
 
+#ifndef sbi
+#define PRG_RDB(addr) pgm_read_byte(addr)
+#endif
+
 #include <atm128hardware.h>
 #include <Atm128Adc.h>
 #include <MicaTimer.h>
@@ -60,6 +64,7 @@
 // enum so components can override power saving,
 // as per TEP 112.
 enum {
+  TOSH_ACTUAL_CC_RSSI_PORT = 0,
   TOS_SLEEP_NONE = ATM128_POWER_IDLE,
 };
 
@@ -75,5 +80,18 @@ enum {
   PLATFORM_BAUDRATE = 57600L
 };
 #endif
+
+/**
+ * (Busy) wait <code>usec</code> microseconds
+ */
+inline void TOSH_uwait(uint16_t usec)
+{
+  /* In most cases (constant arg), the test is elided at compile-time */
+  if (usec)
+    /* loop takes 4 cycles, aka 1us */
+    asm volatile (
+"1:	sbiw	%0,1\n"
+"	brne	1b" : "+r" (usec));
+}
 
 #endif //HARDWARE_H

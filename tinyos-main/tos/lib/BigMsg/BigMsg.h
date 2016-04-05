@@ -24,6 +24,10 @@
 
 // NOTE: please "includes AM;" before including this file
 
+#ifndef DATA_LENGTH
+#define DATA_LENGTH 29
+#endif
+
 enum
 {
 	BIGMSG_HEADER_LENGTH = 3,	// the source and seqNum

@@ -30,21 +30,24 @@ configuration RSSIDriverC
 	provides 
 	{
 		interface RSSIDriver;
-		interface ADC;
+	//	interface ADC;
 	}
 }
 
 implementation
 {
-	components RSSIDriverM, HPLCC1000M, ADCC, CC1000RadioC, CC1000ControlM, LedsC;
+	components RSSIDriverM, HplCC1000P; 
+        // components ADCC;
+        // components CC1000RadioC, CC1000ControlM; 
+	components LedsC;
 
 	RSSIDriver	= RSSIDriverM;
-	ADC		= ADCC.ADC[RSSIDRIVER_ADC_PORT];
+	//ADC		= ADCC.ADC[RSSIDRIVER_ADC_PORT];
 
-	RSSIDriverM.HPLCC1000		-> HPLCC1000M;
-	RSSIDriverM.ADCControl		-> ADCC;
-	RSSIDriverM.CommControl		-> CC1000RadioC;
-	RSSIDriverM.CC1000Init	-> CC1000ControlM;
-	RSSIDriverM.CC1000Control	-> CC1000ControlM;
+	RSSIDriverM.HplCC1000		-> HplCC1000P;
+	//RSSIDriverM.ADCControl		-> ADCC;
+	//RSSIDriverM.CommControl		-> CC1000RadioC;
+	//RSSIDriverM.CC1000Init	-> CC1000ControlM;
+	//RSSIDriverM.CC1000Control	-> CC1000ControlM;
 	RSSIDriverM.Leds		-> LedsC;
 }

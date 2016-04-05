@@ -1,93 +1,12 @@
 mkdir -p build/mica2
     compiling RipsOneHopC to a mica2 binary
-ncc -o build/mica2/main.exe  -Os -I%T/lib/BigMsg -I./RadioInclude -I%T/lib/RemoteControl -I%T/lib/misc -I%T/lib/dfrf -I%T/lib/OrderCorrectADC -I%T/lib/FloodRouting -fnesc-separator=__ -Wall -Wshadow -Wnesc-all -target=mica2 -fnesc-cfile=build/mica2/app.c -board=micasb -DDEFINED_TOS_AM_GROUP=0x22 --param max-inline-insns-single=100000 -DIDENT_APPNAME=\"RipsOneHopC\" -DIDENT_USERNAME=\"rgao\" -DIDENT_HOSTNAME=\"rgao-virtual-ma\" -DIDENT_USERHASH=0x7942d6a9L -DIDENT_TIMESTAMP=0x5702aaf4L -DIDENT_UIDHASH=0xb3edd9f6L -fnesc-dump=wiring -fnesc-dump='interfaces(!abstract())' -fnesc-dump='referenced(interfacedefs, components)' -fnesc-dumpfile=build/mica2/wiring-check.xml RipsOneHopC.nc -lm
-
- 
+ncc -o build/mica2/main.exe  -Os -I%T/lib/BigMsg -I./RadioInclude -I%T/lib/RemoteControl -I%T/lib/misc -I%T/lib/dfrf -I%T/lib/OrderCorrectADC -I%T/lib/FloodRouting -fnesc-separator=__ -Wall -Wshadow -Wnesc-all -target=mica2 -fnesc-cfile=build/mica2/app.c -board=micasb -DDEFINED_TOS_AM_GROUP=0x22 --param max-inline-insns-single=100000 -DIDENT_APPNAME=\"RipsOneHopC\" -DIDENT_USERNAME=\"rgao\" -DIDENT_HOSTNAME=\"rgao-virtual-ma\" -DIDENT_USERHASH=0x7942d6a9L -DIDENT_TIMESTAMP=0x5703f6abL -DIDENT_UIDHASH=0xfa963c2eL -fnesc-dump=wiring -fnesc-dump='interfaces(!abstract())' -fnesc-dump='referenced(interfacedefs, components)' -fnesc-dumpfile=build/mica2/wiring-check.xml RipsOneHopC.nc -lm 
 In file included from ./RadioInclude/RSSILoggerC.nc:36,
                  from RipsPhaseOffsetC.nc:39,
                  from RipsOneHopC.nc:34:
-In component `RSSIDriverC':
-./RadioInclude/RSSIDriverC.nc:33: syntax error before `('
-
-
-In file included from ./RadioInclude/RSSIDriverC.nc:39,
-                 from ./RadioInclude/RSSILoggerC.nc:36,
-                 from RipsPhaseOffsetC.nc:39,
-                 from RipsOneHopC.nc:34:
-In component `RSSIDriverM':
-./RadioInclude/RSSIDriverM.nc:35: interface HPLCC1000 not found
-./RadioInclude/RSSIDriverM.nc:36: interface ADCControl not found
-./RadioInclude/RSSIDriverM.nc: In function `setNextFreq':
-./RadioInclude/RSSIDriverM.nc:64: interface has no command or event named `write'
-./RadioInclude/RSSIDriverM.nc:65: interface has no command or event named `write'
-./RadioInclude/RSSIDriverM.nc:66: interface has no command or event named `write'
-./RadioInclude/RSSIDriverM.nc: In function `execute':
-./RadioInclude/RSSIDriverM.nc:81: implicit declaration of function `PRG_RDB'
-./RadioInclude/RSSIDriverM.nc:89: interface has no command or event named `read'
-./RadioInclude/RSSIDriverM.nc:99: implicit declaration of function `TOSH_uwait'
-./RadioInclude/RSSIDriverM.nc:106: interface has no command or event named `write'
-./RadioInclude/RSSIDriverM.nc: In function `RSSIDriver.acquire':
-./RadioInclude/RSSIDriverM.nc:152: interface has no command or event named `GetRFPower'
-./RadioInclude/RSSIDriverM.nc:154: interface has no command or event named `stop'
-./RadioInclude/RSSIDriverM.nc:155: interface has no command or event named `init'
-./RadioInclude/RSSIDriverM.nc:156: interface has no command or event named `bindPort'
-./RadioInclude/RSSIDriverM.nc:157: `TOSH_ACTUAL_CC_RSSI_PORT' undeclared (first use in this function)
-./RadioInclude/RSSIDriverM.nc:157: (Each undeclared identifier is reported only once
-./RadioInclude/RSSIDriverM.nc:157: for each function it appears in.)
-./RadioInclude/RSSIDriverM.nc:158: interface has no command or event named `setSamplingRate'
-./RadioInclude/RSSIDriverM.nc:167: interface has no command or event named `yellowOn'
-./RadioInclude/RSSIDriverM.nc: In function `RSSIDriver.restore':
-./RadioInclude/RSSIDriverM.nc:178: interface has no command or event named `stop'
-./RadioInclude/RSSIDriverM.nc:180: interface has no command or event named `start'
-./RadioInclude/RSSIDriverM.nc:182: interface has no command or event named `SetRFPower'
-./RadioInclude/RSSIDriverM.nc:186: interface has no command or event named `yellowOff'
-./RadioInclude/RSSIDriverM.nc: In function `RSSIDriver.transmit':
-./RadioInclude/RSSIDriverM.nc:225: interface has no command or event named `write'
-In component `RSSIDriverC':
-./RadioInclude/RSSIDriverC.nc: At top level:
-./RadioInclude/RSSIDriverC.nc:39: component HPLCC1000M not found
-./RadioInclude/RSSIDriverC.nc:39: component ADCC not found
-./RadioInclude/RSSIDriverC.nc:39: component CC1000RadioC not found
-./RadioInclude/RSSIDriverC.nc:39: component CC1000ControlM not found
-./RadioInclude/RSSIDriverC.nc:42: syntax error before `('
-./RadioInclude/RSSIDriverC.nc:44: no match
-./RadioInclude/RSSIDriverC.nc:45: no match
-./RadioInclude/RSSIDriverC.nc:46: no match
-./RadioInclude/RSSIDriverC.nc:47: no match
-./RadioInclude/RSSIDriverC.nc:48: no match
-In file included from /home/rgao/betta/tinyos-main/tos/lib/BigMsg/SendBigMsgM.nc:26,
-                 from /home/rgao/betta/tinyos-main/tos/lib/BigMsg/SendBigMsgC.nc:36,
-                 from ./RadioInclude/RSSILoggerC.nc:36,
-                 from RipsPhaseOffsetC.nc:39,
-                 from RipsOneHopC.nc:34:
-In C file:
-/home/rgao/betta/tinyos-main/tos/lib/BigMsg/BigMsg.h:30: `DATA_LENGTH' undeclared here (not in a function)
-/home/rgao/betta/tinyos-main/tos/lib/BigMsg/BigMsg.h:30: enumerator value for `BIGMSG_DATA_LENGTH' not integer constant
-In component `SendBigMsgM':
-/home/rgao/betta/tinyos-main/tos/lib/BigMsg/SendBigMsgM.nc:38: interface SendMsg not found
-/home/rgao/betta/tinyos-main/tos/lib/BigMsg/SendBigMsgM.nc:51: syntax error before `msg'
-/home/rgao/betta/tinyos-main/tos/lib/BigMsg/SendBigMsgM.nc:61: `init' is not in interface `StdControl'
-/home/rgao/betta/tinyos-main/tos/lib/BigMsg/SendBigMsgM.nc: In function `StdControl.start':
-/home/rgao/betta/tinyos-main/tos/lib/BigMsg/SendBigMsgM.nc:68: `msg' undeclared (first use in this function)
-/home/rgao/betta/tinyos-main/tos/lib/BigMsg/SendBigMsgM.nc:68: `TOS_LOCAL_ADDRESS' undeclared (first use in this function)
-/home/rgao/betta/tinyos-main/tos/lib/BigMsg/SendBigMsgM.nc: In function `sendMsg.runTask':
-/home/rgao/betta/tinyos-main/tos/lib/BigMsg/SendBigMsgM.nc:76: interface has no command or event named `send'
-/home/rgao/betta/tinyos-main/tos/lib/BigMsg/SendBigMsgM.nc:76: `msg' undeclared (first use in this function)
-/home/rgao/betta/tinyos-main/tos/lib/BigMsg/SendBigMsgM.nc: In function `fillMsg.runTask':
-/home/rgao/betta/tinyos-main/tos/lib/BigMsg/SendBigMsgM.nc:88: `msg' undeclared (first use in this function)
-/home/rgao/betta/tinyos-main/tos/lib/BigMsg/SendBigMsgM.nc: At top level:
-/home/rgao/betta/tinyos-main/tos/lib/BigMsg/SendBigMsgM.nc:120: syntax error before `p'
-/home/rgao/betta/tinyos-main/tos/lib/BigMsg/SendBigMsgM.nc:121: `sendDone' is not in interface `SendMsg'
-/home/rgao/betta/tinyos-main/tos/lib/BigMsg/SendBigMsgM.nc: In function `SendMsg.sendDone':
-/home/rgao/betta/tinyos-main/tos/lib/BigMsg/SendBigMsgM.nc:123: `p' undeclared (first use in this function)
-/home/rgao/betta/tinyos-main/tos/lib/BigMsg/SendBigMsgM.nc:123: `msg' undeclared (first use in this function)
-/home/rgao/betta/tinyos-main/tos/lib/BigMsg/SendBigMsgM.nc:128: `success' undeclared (first use in this function)
-/home/rgao/betta/tinyos-main/tos/lib/BigMsg/SendBigMsgM.nc: In function `SendBigMsg.send3':
-/home/rgao/betta/tinyos-main/tos/lib/BigMsg/SendBigMsgM.nc:199: `msg' undeclared (first use in this function)
 In component `SendBigMsgC':
-/home/rgao/betta/tinyos-main/tos/lib/BigMsg/SendBigMsgC.nc: At top level:
 /home/rgao/betta/tinyos-main/tos/lib/BigMsg/SendBigMsgC.nc:36: component GenericComm not found
-/home/rgao/betta/tinyos-main/tos/lib/BigMsg/SendBigMsgC.nc:41: cannot find `SendMsg'
+/home/rgao/betta/tinyos-main/tos/lib/BigMsg/SendBigMsgC.nc:41: cannot find `AMSend'
 In component `RSSILoggerC':
 ./RadioInclude/RSSILoggerC.nc:40: cannot find `Init'
 In file included from RipsDataCollectionC.nc:38,
@@ -121,6 +40,7 @@ In component `RSSIEngineM':
 ./RadioInclude/RSSIEngineM.nc:47: interface SysAlarm not found
 ./RadioInclude/RSSIEngineM.nc:48: interface TimeStamping not found
 ./RadioInclude/RSSIEngineM.nc:49: interface ReceiveMsg not found
+./RadioInclude/RSSIEngineM.nc:50: interface SendMsg not found
 ./RadioInclude/RSSIEngineM.nc:51: syntax error before `('
 ./RadioInclude/RSSIEngineM.nc:89:1: warning: "CHECK" redefined
 In file included from ./RadioInclude/RSSIEngineM.nc:1:
@@ -129,10 +49,11 @@ In file included from ./RadioInclude/RSSIEngineM.nc:1:
 ./RadioInclude/RSSIEngineM.nc:103: nx_struct has no member named `length'
 ./RadioInclude/RSSIEngineM.nc:104: interface has no command or event named `getTime32'
 ./RadioInclude/RSSIEngineM.nc:108: `TOS_LOCAL_ADDRESS' undeclared (first use in this function)
+./RadioInclude/RSSIEngineM.nc:108: (Each undeclared identifier is reported only once
+./RadioInclude/RSSIEngineM.nc:108: for each function it appears in.)
 ./RadioInclude/RSSIEngineM.nc:113: interface has no command or event named `send'
 ./RadioInclude/RSSIEngineM.nc:114: interface has no command or event named `addStamp2'
 ./RadioInclude/RSSIEngineM.nc: In function `RSSIEngine.sendSyncMH':
-./RadioInclude/RSSIEngineM.nc:125: `DATA_LENGTH' undeclared (first use in this function)
 ./RadioInclude/RSSIEngineM.nc:128: nx_struct has no member named `length'
 ./RadioInclude/RSSIEngineM.nc: At top level:
 ./RadioInclude/RSSIEngineM.nc:133: syntax error before `p'

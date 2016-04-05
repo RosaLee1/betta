@@ -32,7 +32,7 @@ module RSSIDriverM
 
 	uses
 	{
-		interface HPLCC1000;
+		interface HplCC1000;
 		interface ADCControl;
 		interface Init as CommControl;
 		interface Init as CC1000Init;
@@ -61,9 +61,9 @@ implementation
 	void setNextFreq(uint32_t freq)
 	{
 		freqReg = freqReg ? 0x00 : (1<<CC1K_F_REG);
-		call HPLCC1000.write(freqReg ? CC1K_FREQ_2B : CC1K_FREQ_2A, (uint8_t)(freq >> 16));
-		call HPLCC1000.write(freqReg ? CC1K_FREQ_1B : CC1K_FREQ_1A, (uint8_t)(freq >> 8));
-		call HPLCC1000.write(freqReg ? CC1K_FREQ_0B : CC1K_FREQ_0A, (uint8_t)freq);
+		call HplCC1000.write(freqReg ? CC1K_FREQ_2B : CC1K_FREQ_2A, (uint8_t)(freq >> 16));
+		call HplCC1000.write(freqReg ? CC1K_FREQ_1B : CC1K_FREQ_1A, (uint8_t)(freq >> 8));
+		call HplCC1000.write(freqReg ? CC1K_FREQ_0B : CC1K_FREQ_0A, (uint8_t)freq);
 	}
 
 	enum
@@ -86,7 +86,7 @@ implementation
 				return;
 
 			case PROG_WAIT_CAL:
-				while( (call HPLCC1000.read(CC1K_CAL) & (1<<CC1K_CAL_COMPLETE)) == 0 )
+				while( (call HplCC1000.read(CC1K_CAL) & (1<<CC1K_CAL_COMPLETE)) == 0 )
 					;
 				break;
 
@@ -103,7 +103,7 @@ implementation
 						val |= freqReg;
 
 					default:
-						call HPLCC1000.write(reg, val);
+						call HplCC1000.write(reg, val);
 				}
 			}
 		}
@@ -149,13 +149,11 @@ implementation
 	{
 		error_t ret;
 		
-	    saved_rx_power = call CC1000Control.GetRFPower();
+	        saved_rx_power = call CC1000Control.getRFPower();
 	    
-		ret = call CommControl.stop()
-			&& call HPLCC1000.init()
-			&& call ADCControl.bindPort(RSSIDRIVER_ADC_PORT,
-				TOSH_ACTUAL_CC_RSSI_PORT)
-			&& call ADCControl.setSamplingRate(RSSIDRIVER_SAMPLING_RATE);
+		call HplCC1000.init();
+                call ADCControl.bindPort(RSSIDRIVER_ADC_PORT, TOSH_ACTUAL_CC_RSSI_PORT);
+                ret = call ADCControl.setSamplingRate(RSSIDRIVER_SAMPLING_RATE);
 
 		if( ret )
 		{
@@ -164,7 +162,7 @@ implementation
 			freqReg = (1<<CC1K_F_REG);
 		}
 
-		call Leds.yellowOn();
+		call Leds.led1On();
 		//call Leds.set(4);
 
 		return ret;
@@ -175,15 +173,15 @@ implementation
 	{
 		error_t ret;
 
-		ret = call CommControl.stop();
+		//ret = call CommControl.stop();
 		ret &= call CC1000Init.init();
-		ret &= call CommControl.start();
+		ret &= call CommControl.init();
 
-        ret &= call CC1000Control.SetRFPower(saved_rx_power);
+        call CC1000Control.setRFPower(saved_rx_power);
         
         
 		if (ret)
-		    call Leds.yellowOff();
+		    call Leds.led1Off();
 
 		return ret;
 	}
@@ -222,7 +220,7 @@ implementation
 	{
 		setNextFreq(channelFreq + tuning);
 		execute(prog_transmit);
-		call HPLCC1000.write(CC1K_PA_POW, strength);
+		call HplCC1000.write(CC1K_PA_POW, strength);
 		return SUCCESS;
 	}
 
