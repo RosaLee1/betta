@@ -46,8 +46,8 @@ implementation
 	RSSIEngineM.SysTime		-> SysTimeC;
 	RSSIEngineM.SysAlarm		-> SysTimeC;
 	RSSIEngineM.TimeStamping	-> SysTimeStampingC;
-	RSSIEngineM.ReceiveMsgMH	-> GenericComm.ReceiveMsg[SYNC_MH_MSG_AM];
-	RSSIEngineM.SendMsgMH		-> GenericComm.SendMsg   [SYNC_MH_MSG_AM];
+	RSSIEngineM.ReceiveMH	-> GenericComm.Receive[SYNC_MH_MSG_AM];
+	RSSIEngineM.AMSendMH		-> GenericComm.AMSend   [SYNC_MH_MSG_AM];
 	RSSIEngineM.RSSIDriver		-> RSSIDriverC;
 	RSSIEngineM.ADC			-> RSSIDriverC;
 	RSSIEngineM.Leds	  -> LedsC;

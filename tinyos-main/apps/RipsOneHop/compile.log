@@ -1,6 +1,6 @@
 mkdir -p build/mica2
     compiling RipsOneHopC to a mica2 binary
-ncc -o build/mica2/main.exe  -Os -I%T/lib/BigMsg -I./RadioInclude -I%T/lib/RemoteControl -I%T/lib/misc -I%T/lib/dfrf -I%T/lib/OrderCorrectADC -I%T/lib/FloodRouting -fnesc-separator=__ -Wall -Wshadow -Wnesc-all -target=mica2 -fnesc-cfile=build/mica2/app.c -board=micasb -DDEFINED_TOS_AM_GROUP=0x22 --param max-inline-insns-single=100000 -DIDENT_APPNAME=\"RipsOneHopC\" -DIDENT_USERNAME=\"rgao\" -DIDENT_HOSTNAME=\"rgao-virtual-ma\" -DIDENT_USERHASH=0x7942d6a9L -DIDENT_TIMESTAMP=0x5703f6abL -DIDENT_UIDHASH=0xfa963c2eL -fnesc-dump=wiring -fnesc-dump='interfaces(!abstract())' -fnesc-dump='referenced(interfacedefs, components)' -fnesc-dumpfile=build/mica2/wiring-check.xml RipsOneHopC.nc -lm 
+ncc -o build/mica2/main.exe  -Os -I%T/lib/BigMsg -I./RadioInclude -I%T/lib/RemoteControl -I%T/lib/misc -I%T/lib/dfrf -I%T/lib/OrderCorrectADC -I%T/lib/FloodRouting -fnesc-separator=__ -Wall -Wshadow -Wnesc-all -target=mica2 -fnesc-cfile=build/mica2/app.c -board=micasb -DDEFINED_TOS_AM_GROUP=0x22 --param max-inline-insns-single=100000 -DIDENT_APPNAME=\"RipsOneHopC\" -DIDENT_USERNAME=\"rgao\" -DIDENT_HOSTNAME=\"rgao-virtual-ma\" -DIDENT_USERHASH=0x7942d6a9L -DIDENT_TIMESTAMP=0x5703ff54L -DIDENT_UIDHASH=0xe5e94290L -fnesc-dump=wiring -fnesc-dump='interfaces(!abstract())' -fnesc-dump='referenced(interfacedefs, components)' -fnesc-dumpfile=build/mica2/wiring-check.xml RipsOneHopC.nc -lm 
 In file included from ./RadioInclude/RSSILoggerC.nc:36,
                  from RipsPhaseOffsetC.nc:39,
                  from RipsOneHopC.nc:34:
@@ -9,18 +9,6 @@ In component `SendBigMsgC':
 /home/rgao/betta/tinyos-main/tos/lib/BigMsg/SendBigMsgC.nc:41: cannot find `AMSend'
 In component `RSSILoggerC':
 ./RadioInclude/RSSILoggerC.nc:40: cannot find `Init'
-In file included from RipsDataCollectionC.nc:38,
-                 from RipsPhaseOffsetC.nc:40,
-                 from RipsOneHopC.nc:34:
-In component `RipsDataCollectionM':
-RipsDataCollectionM.nc: In function `reportError.runTask':
-RipsDataCollectionM.nc:233: warning: passing argument 2 of `SendDBGMsg.send' makes pointer from integer without a cast
-RipsDataCollectionM.nc:233: warning: passing argument 3 of `SendDBGMsg.send' makes integer from pointer without a cast
-RipsDataCollectionM.nc: At top level:
-RipsDataCollectionM.nc:237: syntax error before `p'
-RipsDataCollectionM.nc:238: conflicting types for `SendDBGMsg.sendDone'
-/home/rgao/betta/tinyos-main/tos/interfaces/AMSend.nc:110: previous declaration of `SendDBGMsg.sendDone'
-RipsDataCollectionM.nc:400: `init' is not in interface `StdControl'
 In file included from RipsDataCollectionC.nc:38,
                  from RipsPhaseOffsetC.nc:40,
                  from RipsOneHopC.nc:34:
@@ -39,51 +27,34 @@ In component `RSSIEngineM':
 ./RadioInclude/RSSIEngineM.nc:46: interface SysTime not found
 ./RadioInclude/RSSIEngineM.nc:47: interface SysAlarm not found
 ./RadioInclude/RSSIEngineM.nc:48: interface TimeStamping not found
-./RadioInclude/RSSIEngineM.nc:49: interface ReceiveMsg not found
-./RadioInclude/RSSIEngineM.nc:50: interface SendMsg not found
 ./RadioInclude/RSSIEngineM.nc:51: syntax error before `('
-./RadioInclude/RSSIEngineM.nc:89:1: warning: "CHECK" redefined
+./RadioInclude/RSSIEngineM.nc:93:1: warning: "CHECK" redefined
 In file included from ./RadioInclude/RSSIEngineM.nc:1:
 <built-in>: warning: this is the location of the previous definition
 ./RadioInclude/RSSIEngineM.nc: In function `sendSyncMH.runTask':
-./RadioInclude/RSSIEngineM.nc:103: nx_struct has no member named `length'
-./RadioInclude/RSSIEngineM.nc:104: interface has no command or event named `getTime32'
-./RadioInclude/RSSIEngineM.nc:108: `TOS_LOCAL_ADDRESS' undeclared (first use in this function)
-./RadioInclude/RSSIEngineM.nc:108: (Each undeclared identifier is reported only once
-./RadioInclude/RSSIEngineM.nc:108: for each function it appears in.)
-./RadioInclude/RSSIEngineM.nc:113: interface has no command or event named `send'
-./RadioInclude/RSSIEngineM.nc:114: interface has no command or event named `addStamp2'
-./RadioInclude/RSSIEngineM.nc: In function `RSSIEngine.sendSyncMH':
-./RadioInclude/RSSIEngineM.nc:128: nx_struct has no member named `length'
+./RadioInclude/RSSIEngineM.nc:108: interface has no command or event named `getTime32'
+./RadioInclude/RSSIEngineM.nc:118: interface has no command or event named `addStamp2'
 ./RadioInclude/RSSIEngineM.nc: At top level:
-./RadioInclude/RSSIEngineM.nc:133: syntax error before `p'
-./RadioInclude/RSSIEngineM.nc:134: `sendDone' is not in interface `SendMsgMH'
-./RadioInclude/RSSIEngineM.nc:137: syntax error before `ReceiveMsgMH'
-./RadioInclude/RSSIEngineM.nc:140: `msg' undeclared here (not in a function)
-./RadioInclude/RSSIEngineM.nc:140: `tail' undeclared here (not in a function)
-./RadioInclude/RSSIEngineM.nc:140: subscripted value is neither array nor pointer
-./RadioInclude/RSSIEngineM.nc:140: initializer element is not constant
-./RadioInclude/RSSIEngineM.nc:140: (near initialization for `msgTSHeader')
-./RadioInclude/RSSIEngineM.nc:141: initializer element is not constant
-./RadioInclude/RSSIEngineM.nc:141: (near initialization for `delta')
-./RadioInclude/RSSIEngineM.nc:142: initializer element is not constant
-./RadioInclude/RSSIEngineM.nc:142: (near initialization for `numHops')
-./RadioInclude/RSSIEngineM.nc:144: syntax error before `if'
-./RadioInclude/RSSIEngineM.nc:151: warning: declaration of `syncMsg' shadows global declaration
-./RadioInclude/RSSIEngineM.nc:61: warning: location of shadowed declaration
-./RadioInclude/RSSIEngineM.nc:151: syntax error before `.'
-./RadioInclude/RSSIEngineM.nc:151: warning: return-type defaults to `int'
-./RadioInclude/RSSIEngineM.nc:151: conflicting types for `memcpy'
+./RadioInclude/RSSIEngineM.nc:142: syntax error before `ReceiveMH'
+./RadioInclude/RSSIEngineM.nc:145: `msg' undeclared here (not in a function)
+./RadioInclude/RSSIEngineM.nc:145: subscripted value is neither array nor pointer
+./RadioInclude/RSSIEngineM.nc:145: initializer element is not constant
+./RadioInclude/RSSIEngineM.nc:145: (near initialization for `msgTSHeader')
+./RadioInclude/RSSIEngineM.nc:146: initializer element is not constant
+./RadioInclude/RSSIEngineM.nc:146: (near initialization for `delta')
+./RadioInclude/RSSIEngineM.nc:147: initializer element is not constant
+./RadioInclude/RSSIEngineM.nc:147: (near initialization for `numHops')
+./RadioInclude/RSSIEngineM.nc:149: syntax error before `if'
+./RadioInclude/RSSIEngineM.nc:156: warning: declaration of `syncMsg' shadows global declaration
+./RadioInclude/RSSIEngineM.nc:62: warning: location of shadowed declaration
+./RadioInclude/RSSIEngineM.nc:156: syntax error before `.'
+./RadioInclude/RSSIEngineM.nc:156: warning: return-type defaults to `int'
+./RadioInclude/RSSIEngineM.nc:156: conflicting types for `memcpy'
 /usr/lib/gcc/avr/4.1.2/../../../../avr/include/string.h:117: previous declaration of `memcpy'
-./RadioInclude/RSSIEngineM.nc:151: warning: data definition has no type or storage class
-./RadioInclude/RSSIEngineM.nc:152: unexpected interface reference in declaration of `syncMsg.length'
-./RadioInclude/RSSIEngineM.nc:152: warning: type defaults to `int' in declaration of `length'
-./RadioInclude/RSSIEngineM.nc:152: `msg' undeclared here (not in a function)
-./RadioInclude/RSSIEngineM.nc:152: warning: data definition has no type or storage class
-./RadioInclude/RSSIEngineM.nc:155: syntax error before `atomic'
-./RadioInclude/RSSIEngineM.nc:161: syntax error before `struct'
-./RadioInclude/RSSIEngineM.nc:162: syntax error before `struct'
-./RadioInclude/RSSIEngineM.nc:163: syntax error before `struct'
+./RadioInclude/RSSIEngineM.nc:156: warning: data definition has no type or storage class
+./RadioInclude/RSSIEngineM.nc:166: syntax error before `struct'
+./RadioInclude/RSSIEngineM.nc:167: syntax error before `struct'
+./RadioInclude/RSSIEngineM.nc:168: syntax error before `struct'
 RSSIEngineM: `RSSIEngine.recordBlock' not implemented
 RSSIEngineM: `RSSIEngine.suspendBlock' not implemented
 RSSIEngineM: `RSSIEngine.calibrateTransmit' not implemented
@@ -96,6 +67,7 @@ RSSIEngineM: `RSSIEngine.transmitBlock' not implemented
 RSSIEngineM: `RSSIEngine.getElapsedTime' not implemented
 RSSIEngineM: `RSSIEngine.ripsBlock' not implemented
 RSSIEngineM: `RSSIEngine.resetElapsedTime' not implemented
+RSSIEngineM: `ReceiveMH.receive' not implemented
 RSSIEngineM: `taskStep.runTask' not implemented
 In component `RSSIEngineC':
 ./RadioInclude/RSSIEngineC.nc:52: syntax error before `('
@@ -103,22 +75,22 @@ In component `RSSIEngineC':
 ./RadioInclude/RSSIEngineC.nc:46: no match
 ./RadioInclude/RSSIEngineC.nc:47: no match
 ./RadioInclude/RSSIEngineC.nc:48: no match
-./RadioInclude/RSSIEngineC.nc:49: cannot find `ReceiveMsg'
-./RadioInclude/RSSIEngineC.nc:50: cannot find `SendMsg'
+./RadioInclude/RSSIEngineC.nc:49: cannot find `Receive'
+./RadioInclude/RSSIEngineC.nc:50: cannot find `AMSend'
 In component `RipsDataCollectionC':
 RipsDataCollectionC.nc:47: cannot find `AMSend'
 In component `RipsPhaseOffsetC':
 RipsPhaseOffsetC.nc:40: component TimerC not found
-RipsPhaseOffsetC.nc:43: no match
 RipsPhaseOffsetC.nc:49: cannot find `Timer'
 RipsPhaseOffsetC.nc:50: cannot find `Receive'
 RipsPhaseOffsetC.nc:51: cannot find `AMSend'
-RipsPhaseOffsetC.nc:52: no match
 RipsPhaseOffsetC.nc:53: cannot find `Receive'
 RipsPhaseOffsetC.nc:54: cannot find `AMSend'
 In file included from /home/rgao/betta/tinyos-main/tos/lib/FloodRouting/FloodRoutingC.nc:43,
                  from RipsOneHopC.nc:34:
 In component `FloodRoutingM':
+/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/FloodRoutingM.nc:53: interface SendMsg not found
+/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/FloodRoutingM.nc:54: interface ReceiveMsg not found
 /home/rgao/betta/tinyos-main/tos/lib/FloodRouting/FloodRoutingM.nc:55: too few arguments to interface `Timer'
 /home/rgao/betta/tinyos-main/tos/lib/FloodRouting/FloodRoutingM.nc:69: warning: tag block shadows enclosing struct/union/enum
 /home/rgao/betta/tinyos-main/tos/lib/FloodRouting/FloodRoutingM.nc:98: warning: tag descriptor shadows enclosing struct/union/enum
@@ -126,6 +98,8 @@ In component `FloodRoutingM':
 /home/rgao/betta/tinyos-main/tos/lib/FloodRouting/FloodRoutingM.nc:164: syntax error before `rxMsg'
 /home/rgao/betta/tinyos-main/tos/lib/FloodRouting/FloodRoutingM.nc: In function `copyData':
 /home/rgao/betta/tinyos-main/tos/lib/FloodRouting/FloodRoutingM.nc:245: `txMsg' undeclared (first use in this function)
+/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/FloodRoutingM.nc:245: (Each undeclared identifier is reported only once
+/home/rgao/betta/tinyos-main/tos/lib/FloodRouting/FloodRoutingM.nc:245: for each function it appears in.)
 /home/rgao/betta/tinyos-main/tos/lib/FloodRouting/FloodRoutingM.nc: In function `sendMsg.runTask':
 /home/rgao/betta/tinyos-main/tos/lib/FloodRouting/FloodRoutingM.nc:289: `txMsg' undeclared (first use in this function)
 /home/rgao/betta/tinyos-main/tos/lib/FloodRouting/FloodRoutingM.nc:291: interface has no command or event named `send'
@@ -169,6 +143,5 @@ In component `FloodRoutingC':
 /home/rgao/betta/tinyos-main/tos/lib/FloodRouting/FloodRoutingC.nc:56: no match
 In component `RipsOneHopC':
 RipsOneHopC.nc:40: cannot find `Init'
-RipsOneHopC.nc:41: no match
 RipsOneHopC.nc:54: no match
 make: *** [exe0] Error 1

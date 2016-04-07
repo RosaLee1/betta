@@ -46,10 +46,11 @@ module RSSIEngineM
         interface SysTime;
         interface SysAlarm;
         interface TimeStamping;
-        interface ReceiveMsg as ReceiveMsgMH;
-        interface SendMsg as SendMsgMH;
+        interface Receive as ReceiveMH;
+        interface AMSend as AMSendMH;
         interface ADC;
         interface Leds;
+        interface Packet;
     }
 }
 
@@ -60,6 +61,9 @@ implementation
 
     norace message_t syncMsg;
 #define tsHeader ((struct TSHeader *)(&syncMsg.data[tail]))
+
+    uint8_t tail;
+   // uint8_t length;
 
     enum
     {
@@ -100,17 +104,17 @@ implementation
     task void sendSyncMH()
     {
         // WHY IS THIS TASK NECESSARY? receive() is not using it any more
-        int8_t tail = syncMsg.length;
+        tail = call Packet.payloadLength(&syncMsg);
         atomic time = call SysTime.getTime32() + RSSIENGINE_SYNC_MH_TIME;
 
         tsHeader->deadlineTS = time;                         // Timesync deadline (in sender's local time)
         tsHeader->timeStamp = 0;
-        tsHeader->sender = (uint8_t)TOS_LOCAL_ADDRESS;
+        tsHeader->sender = (uint8_t)TOS_NODE_ID;
         atomic{
             if (TSnumHops>0)
                 tsHeader->hopsToDo = --TSnumHops;
         }
-        if( call SendMsgMH.send(TOS_BCAST_ADDR, SYNC_MH_MSG_HEADER+tail, &syncMsg))
+        if( call AMSendMH.send(TOS_BCAST_ADDR, &syncMsg, SYNC_MH_MSG_HEADER+tail))
             call TimeStamping.addStamp2(&syncMsg, tail+4);
         else{
             signal RSSIEngine.done(FAIL);
@@ -125,18 +129,19 @@ implementation
         CHECK( length + SYNC_MH_MSG_HEADER <= DATA_LENGTH );
 
         memcpy( syncMsg.data, data, length);
-        syncMsg.length = length;
+        //syncMsg.length = length;
+	//length = call Packet.payloadLength(&syncMsg);
         TSnumHops = numHops;
         
         CHECK_TASK(post sendSyncMH());
     }
-    event error_t SendMsgMH.sendDone(message_tPtr p, error_t success)
+    event void AMSendMH.sendDone(message_t* p, error_t success)
     {
-        return SUCCESS;
+        //return SUCCESS;
     }
-    event message_tPtr ReceiveMsgMH.receive(message_tPtr msg)
+    event message_tPtr ReceiveMH.receive(message_tPtr msg)
     {
-        int8_t tail = msg->length - SYNC_MH_MSG_HEADER;
+        int8_t tail = length - SYNC_MH_MSG_HEADER;
         struct TSHeader *msgTSHeader = ((struct TSHeader *)(&msg->data[tail]));
         uint32_t delta = msgTSHeader->deadlineTS - msgTSHeader->timeStamp;
         uint8_t numHops = msgTSHeader->hopsToDo;
@@ -148,8 +153,8 @@ implementation
         if (radioState != STATE_NONE || msgTSHeader->timeStamp == 0 || RSSIENGINE_SYNC_MH_TIME < delta)
             return msg;
             
-        memcpy( syncMsg.data, msg->data, msg->length);
-        syncMsg.length = msg->length;
+        memcpy( syncMsg.data, msg->data, length);
+        //syncMsg.length = msg->length;
 
         // WHAT IF MULTIPLE msgs come? is wait(0) handling this correctly? --> they WON"T come, wait(0) changes radioState to STATE_WAIT
         atomic time = call TimeStamping.getStamp2(msg) + delta;
@@ -159,10 +164,10 @@ implementation
    
             atomic tsHeader->deadlineTS = time;                         // Timesync deadline (in sender's local time)
             tsHeader->timeStamp = 0;            // Sender timestamp 
-            tsHeader->sender = (uint8_t)TOS_LOCAL_ADDRESS;
+            tsHeader->sender = (uint8_t)TOS_NODE_ID;
             tsHeader->hopsToDo = numHops-1;
     
-            if( call SendMsgMH.send(TOS_BCAST_ADDR, SYNC_MH_MSG_HEADER+tail, &syncMsg) )
+            if( call AMSendMH.send(TOS_BCAST_ADDR, SYNC_MH_MSG_HEADER+tail, &syncMsg) )
                 call TimeStamping.addStamp2(&syncMsg, tail+4);
             else
                 return msg;

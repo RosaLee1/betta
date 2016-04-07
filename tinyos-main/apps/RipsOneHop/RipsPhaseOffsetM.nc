@@ -455,7 +455,7 @@ implementation
     }
 
 /** 
-*   command error_t StdControl.start()
+*   command error_t Init.start()
 *    {
 *        call SubControl.start();
 *        state = STATE_READY;
@@ -465,7 +465,7 @@ implementation
 */
 
 /**
-*    command error_t StdControl.stop()
+*    command error_t Init.stop()
 *    {
 *        call SubControl.stop();
 *        call RSSILogger.reset();

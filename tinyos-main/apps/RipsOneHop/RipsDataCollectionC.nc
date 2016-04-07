@@ -28,7 +28,7 @@ configuration RipsDataCollectionC
 {
 	provides
 	{
-	    interface StdControl;
+	    interface Init;
 		interface RipsDataCollection;
 	}
 }
@@ -38,7 +38,7 @@ implementation
 	components MainC, RipsDataCollectionM, RipsDataStoreC, RSSIEngineC, LedsC, GenericComm;
 
 	RipsDataCollection = RipsDataCollectionM;
-	StdControl = RipsDataCollectionM;
+	Init = RipsDataCollectionM;
 	
     RipsDataCollectionM.RipsDataStore -> RipsDataStoreC;
 	RipsDataCollectionM.RSSIEngine -> RSSIEngineC;

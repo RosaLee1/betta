@@ -1,7 +1,7 @@
-set files = `grep -l StdControl *.nc`
+set files = `grep -l TOS_LOCAL_ADDRESS *.nc`
 
 foreach file ($files) 
-   sed -e 's/StdControl/Init/g' <$file >JUNK
+   sed -e 's/TOS_LOCAL_ADDRESS/TOS_NODE_ID/g' <$file >JUNK
    mv JUNK $file
 end
 

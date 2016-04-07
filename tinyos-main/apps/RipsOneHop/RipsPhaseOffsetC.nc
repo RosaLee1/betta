@@ -29,7 +29,7 @@ configuration RipsPhaseOffsetC
 {
 	provides
 	{
-	    interface StdControl;
+	    interface Init;
 		interface RipsPhaseOffset;
 	}
 }
@@ -40,7 +40,7 @@ implementation
 	            RipsDataCollectionC, TimerC, GenericComm;
 
 	RipsPhaseOffset = RipsPhaseOffsetM;
-	StdControl = RipsPhaseOffsetM;
+	Init = RipsPhaseOffsetM;
 	
 	RipsPhaseOffsetM.RipsDataCollection -> RipsDataCollectionC;
 	RipsPhaseOffsetM.RipsDataStore -> RipsDataStoreC;

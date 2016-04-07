@@ -1,7 +1,7 @@
-set files = `grep -l TOS_Msg *.nc`
+set files = `grep -l StdControl *.nc`
 
 foreach file ($files) 
-   sed -e 's/TOS_Msg/message_t/g' <$file >JUNK
+   sed -e 's/StdControl/Init/g' <$file >JUNK
    mv JUNK $file
 end
 

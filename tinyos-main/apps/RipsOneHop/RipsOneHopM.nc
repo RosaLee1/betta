@@ -184,7 +184,7 @@ implementation
 */
 
 /**
-*    command error_t StdControl.start()
+*    command error_t Init.start()
 *    {
 *        call SubControl.start();
 *        call FloodRouting.init(sizeof(struct RoutingPacket), *ROUTING_UNIQUE_SIZE, routingBuffer, call RipsDataStore.getRoutingBufferSize());

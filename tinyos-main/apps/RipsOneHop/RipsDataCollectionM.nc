@@ -31,7 +31,7 @@ module RipsDataCollectionM
     provides
     {
         interface RipsDataCollection;
-	    interface StdControl;
+	    interface Init;
     }
     uses
     {
@@ -230,16 +230,16 @@ implementation
 		*(uint16_t*)(&msg.data[0]) = TOS_NODE_ID;
 		*(uint16_t*)(&msg.data[2]) = line;
 		*(uint16_t*)(&msg.data[4]) = state;
-        call SendDBGMsg.send(TOS_BCAST_ADDR, 5, &msg);
+        call SendDBGMsg.send(TOS_BCAST_ADDR, &msg, 5);
 	    NEXT_STATE(STATE_READY);
 	    signal RipsDataCollection.collectionEnded(FAIL);
 	}
-	event error_t SendDBGMsg.sendDone(message_tPtr p, error_t success)
+	event void SendDBGMsg.sendDone(message_t* p, error_t success)
 	{  
 	    call Leds.set(6);
 	    NEXT_STATE(STATE_READY);
 	    signal RipsDataCollection.collectionEnded(FAIL);
-	    return SUCCESS;
+	    //return SUCCESS;
 	}
 
 
@@ -396,26 +396,32 @@ implementation
 		}
 	}
 
-	command error_t StdControl.init()
+	command error_t Init.init()
 	{
 	    channels = call RipsDataStore.getChannels();
 	    params = call RipsDataStore.getParams();
 	    syncPacket = call RipsDataStore.getSyncPacket();
-		return SUCCESS;
-	}
 
-	command error_t StdControl.start()
-	{
 	    NEXT_STATE(STATE_READY);
-
-		return SUCCESS;
+	    return SUCCESS;
 	}
 
-	command error_t StdControl.stop()
-	{
-	    NEXT_STATE(STATE_STOPPED);
-		return SUCCESS;
-	}
+/**
+*	command error_t Init.start()
+*	{
+*	   
+*
+*		return SUCCESS;
+*	}
+*/
+
+/**
+*	command error_t Init.stop()
+*	{
+*	    NEXT_STATE(STATE_STOPPED);
+*		return SUCCESS;
+*	}
+*/
 
 }
 
